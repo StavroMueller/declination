@@ -1,0 +1,4 @@
+This should be a map game sortal like carmen san diego, where you try to find the guy
+in a random location. 
+
+We can have a right pane that says "Dossier" with all the information and items that you have currently
