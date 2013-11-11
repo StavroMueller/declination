@@ -1,0 +1,9 @@
+
+Declination.ui = {
+	
+	init: function() {
+
+		
+	}
+
+}

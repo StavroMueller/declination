@@ -2,3 +2,24 @@ This should be a map game sortal like carmen san diego, where you try to find th
 in a random location. 
 
 We can have a right pane that says "Dossier" with all the information and items that you have currently
+o
+need some sory of clue generator engine, I don;t know how that can be done,. okay, so here's the process - 
+
+we start out and the program randomly selects a location, whether from a csv or something else. then after that we can see that the dossier is randomly generated. This is the hard part - should the random generation be part of an object and used to determine other things in the game> dunno, but it would make for an interesting thing there . we'll see. Okay, so the buiggest question - should you keep an account? maybe not, maybe. this is a hard one - there could be hunts, and then prizes for the fastest person? dunno. That would require a new hosting service - amazon cloud maybe?
+
+
+how do w get the core mechanic to work - more importantly, what is the core mechanic? Some sort of detective thing with findiing out WHERE the person is? clikcing is just too simple - so need o figure out how to make a good game mechanic...something that is compelling, what will be the limiting factor? Budge, I guess - expenses and travel for now. Need to start out small and build up something like money or reputation. Can use rep in lieu of money. so, what we have here is a modified adventure game mechanic. We need an inventory, items probablty, and things for them to interact wiht. Maube each merson wcould have an item that they drop and you can use that as a clue. This needs to be worked in with twitter or something, to make it more acive, that'd be neat. mthis is frustrating. Need to craete a where 
+
+okay so we need to have the "souce" city, and the destination. 
+
+so now we have the people that needs to gice hints and clues - how would the programming work? This depends on the ways the classes are set up - we can have people and then we can derive the two from that. The villain can be a person and the hint people can be people - but be careful not to get carried away in making this thing too complicated. 
+
+could get the car to follow the path using point latlng to div pixel and doing a transform
+
+
+this would require custom maps, uh oh
+
+
+could just get natives to make these, I guess. That would suck though
+
+could do airplane travel for now, just to get started

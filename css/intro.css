@@ -1,0 +1,17 @@
+body {
+	margin: 0px;
+	background-color: #191919;
+	background-image: url("../images/102-93-4-monochrome.png");
+	background-repeat: repeat;
+}
+
+h1 {
+	font-family: 'Quicksand', sans-serif;
+	color: white;
+	font-size: 120px;
+}
+
+#container {
+	padding: 10px;
+	margin: 10px;
+}
