@@ -8,7 +8,7 @@ body {
 h1 {
 	font-family: 'Quicksand', sans-serif;
 	color: white;
-	font-size: 120px;
+	font-size: 90px;
 }
 
 h2 {
@@ -23,8 +23,8 @@ p.notes {
 #container {
 	padding: 10px;
 	margin: 10px;
-	width:1500px;
-	height:1000px;
+	width:1125px;
+	height: 750px;
 }
 
 #characterPic {
@@ -32,12 +32,13 @@ p.notes {
 	top: 0px;
 	left: 0px;
 	height:100%;
+	width: 100%;
 }
 
 #dossierDesk {
 	background-image: url("../images/natural_paper.png");
 	background-repeat: repeat;
-	height:500px;
+	height: 375px;
 	width:80%;
 	margin: auto;
 	border-radius: 5px;
@@ -48,16 +49,18 @@ p.notes {
 #title {
 	float: left;
 	width: 50%;
-	height: 400px;
+	height: 300px;
 }
 
 #rightSide {
 	position: relative;
 	display:none;
+	height: auto;
 	width: 50%;
 	float: right;
 }
 
 #introLight {
 	height:100%;
+	width:100%;
 }
