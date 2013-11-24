@@ -1,0 +1,66 @@
+body {
+	margin: 0px;
+	background-color: #191919;
+	background-image: url("../images/102-93-4-monochrome.png");
+	background-repeat: repeat;
+}
+
+h1 {
+	font-family: 'Quicksand', sans-serif;
+	color: white;
+	font-size: 90px;
+}
+h2 {
+	font-family: 'Quicksand', sans-serif;
+	color: white;
+}
+
+p.notes {
+	font-family: 'Rock Salt', cursive;
+}
+
+#container {
+	padding: 10px;
+    margin: 10px auto 10px auto;
+	width:1125px;
+	height: 550px;
+}
+
+#episodeBanner {
+    width:100%;
+    height: auto;
+}
+
+#playArea {
+    height:100%;
+}
+
+#leftside {
+    position: relative;
+    background-color:red;
+    width:600px;
+    height:100%;
+}
+
+#map {
+    background-color:blue;
+    height: 100%;
+    width: 100%;
+}
+
+#room {
+    background-color:green;
+    display: none;
+    height:100%;
+    width:100%;
+}
+
+#rightside {
+    position: relative;
+    float:right;
+    width: 400px;
+    height:100%
+}
+
+
+
