@@ -29,3 +29,5 @@ could just get natives to make these, I guess. That would suck though
 could do airplane travel for now, just to get started
 
 Choose a home city
+
+the room specific function should always check for the game mode first

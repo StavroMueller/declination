@@ -7,12 +7,15 @@
 // http://stackoverflow.com/questions/2159044/getting-the-x-y-coordinates-of-a-mouse-click-on-an-image-with-jquery
 //jquery can get the coords of a click - we can check if the click is within the coords of an object, and then 
 //we go from there
-var sampleRoom = {
+var sampleRoomConfig = {
     onEnter: "You enter the sample room. It's bland, and there's an old lady in the corner giving away toothpicks with small bits of meat on the end.",
     roomImage: "images/rooms/001.png",
-    items: [
-        new Interactable("something"),
-        new Interactable("something else")
+    roomId: "999",
+    interactables: [
+        new Interactable({
+        	left: 50,
+            top: 50,
+        }), //The defaults will take care of the dev object
     ]
 };
 
@@ -23,10 +26,30 @@ function RoomSet(rooms) {
     
 }
 
+
+//The options object will look something like this:
+//{
+//	roomId: 999 //The id for the room - used to locate all the resources
+//  interactables: [
+//		new Interactable("Door", 16, 16)
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 function Room(options) {
     "use strict";
     
-    this.createRoom = function (options) {
+    this.interactables = options.interactables;
+    this.roomId = options.roomId
+    
+    this.draw = function () {
         //this is where we would make the map invisible, and then overlay the room page on top.
         //something like 
         //Game.RoomMode();
@@ -34,24 +57,44 @@ function Room(options) {
         // we need a function to create the room div as well as destroy it completely when we're done.
         // and just for placeholding (really we will grab it from the global variable):
         
-        var roomElement = "#room";
-        _.each(options.interactables, function(entity) {
+        var roomDiv= "#room";
+       	
+        var roomImgElement = $("<img/>", {
+            "src": "images/rooms/" + this.roomId + "/backgrounds/main.png",
+            "id": "roomBG",
+            "width": "100%",
+            "height": "100%",
+        }); 
+        //let's see what we need first
+        //roomImgElement.css({
+        $(roomDiv).empty(); 
+       	$(roomDiv).append(roomImgElement);
+       	console.log("Created Room"); 
+        _.each(this.interactables, function(entity) {
+            //The idea here - each "interactable" will be a div, that just fits an image.
+            //This image we will then define where it will be placed absolutely inside the "room"
+            // this means, for example, if we have a ball of size 32x32, and we want to position relative to the center,
+            // we will pass in 16,16 - kind of like the way you make a custom marker.
             //var html = "<img src='";
             
             //html += entity.imageName + "' id='" + entity.id + "'";
+        	console.log("Creating the interactable", entity);
             
             var itemElement = $("<img/>", {
-                "src": entity.imageName,
-                "id": entity.id,
+                "src": entity.imageURL,
+                "id": entity.shortDescription,
             });
             
             itemElement.css({
-                "top": entity.topCoord,
-                "left": entity.leftCoord,
-                "position": absolute,
+                "top": entity.top + "px",
+                "left": entity.left + "px",
+        		"width": entity.width + "px",
+        		"height": entity.height + "px",
+                "position": "absolute",
             });
             
-            $(roomElement).append(itemElement);
+        	console.log("Created the" , entity.shortDescription, "element as html:" , itemElement);
+            $(roomDiv).append(itemElement);
             
             if (entity.activate) {
                 //Add a listener to the element for a click

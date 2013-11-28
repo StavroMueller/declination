@@ -1,4 +1,5 @@
 body {
+    height: 100%;
 	margin: 0px;
 	background-color: #191919;
 	background-image: url("../images/102-93-4-monochrome.png");
@@ -12,8 +13,10 @@ h1 {
 }
 h2 {
 	font-family: 'Quicksand', sans-serif;
+    margin:0px;
 	color: white;
 }
+
 
 p.notes {
 	font-family: 'Rock Salt', cursive;
@@ -23,12 +26,12 @@ p.notes {
 	padding: 10px;
     margin: 10px auto 10px auto;
 	width:1125px;
-	height: 550px;
+	height: 450px;
 }
 
 #episodeBanner {
-    width:100%;
-    height: auto;
+    
+    margin: auto;
 }
 
 #playArea {
@@ -37,29 +40,35 @@ p.notes {
 
 #leftside {
     position: relative;
+    float:left;
     background-color:red;
-    width:600px;
+    width:60%;
     height:100%;
 }
 
 #map {
     background-color:blue;
+    z-index: 2;
     height: 100%;
     width: 100%;
 }
 
 #room {
     background-color:green;
-    display: none;
+    z-index: 1;
+    position:absolute;
+    top:0px;
+    left: 0px;
     height:100%;
     width:100%;
+    cursor: pointer;
 }
 
 #rightside {
     position: relative;
     float:right;
-    width: 400px;
-    height:100%
+    width: 40%;
+    height:100%;
 }
 
 
