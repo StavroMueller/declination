@@ -17,7 +17,13 @@ function Interactable(options) {
         description: "This is the default description",
         shortDescription: "test",
         type: "test",
+        //We should be able to at leas make a square and a circle so you have to actually click on the object
+        generalShape: "rectangle",
+        activate: function() {
+            console.log("Hey, you clikced me.");
+        },
     });
+    console.log("Creating entity with options", options);
     if (options.type = "door") {
         //leads to something
         this.leadsTo = options.leadsTo;
@@ -25,13 +31,38 @@ function Interactable(options) {
     if (options.type = "item") {
         console.log("blah");
     }
+    
+    //This should really be done in a loop
     this.top = options.top;
     this.left = options.left;
     this.description = options.description;
+    this.activate = options.activate;
     this.shortDescription = options.shortDescription;
     this.imageURL = options.imageURL;
     this.width = options.width;
     this.height = options.height;
     this.xCenter = options.xCenter;
     this.yCenter = options.yCenter;
+    
+    this.generateDOMElement = function() {
+        //This will return the dom element of the interactable - this is because the traits will be different 
+        //based on which type of interactable we are. (People have animations and text, etc.)
+        console.log("Creating the interactable", this);
+            
+        var itemElement = $("<img/>", {
+            "src": this.imageURL,
+            "id": this.shortDescription,
+        });
+        
+        itemElement.css({
+            "top": this.top + "px",
+            "left": this.left + "px",
+            "width": this.width + "px",
+            "height": this.height + "px",
+            "position": "absolute",
+        });
+        
+        return itemElement;
+        
+    };
 }

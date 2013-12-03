@@ -11,7 +11,25 @@ Declination.game = {
 
 	init: function () {
 		console.log("game init");
-
+        
+        //I guess we can hold the inventory here
+        this.inventory = {
+            
+            addItem: function(item) {
+                //Will take in an item obejct? Should these be bare objects or translated from something else?
+                //Maybe an interactable can have a .geItemVersion? Actually that would be A case, but not THE case.
+                //This should take in an obect by default. 
+                //All we need is a description and an image - and something that it combines with? need to think more about how this will work with everything else
+                //What it will look like:
+                //
+                //{
+               	//  id: 999,
+                //  inventoryImage: "someurl/to/this/item",
+                //}
+                
+            },
+            
+        };
 	}
 };
 
@@ -41,7 +59,8 @@ Declination.ui = {
                     console.log("Successfully switched to", mode, "mode");
                     break;
                 case "map":
-                    
+                    console.log("map case in mode");
+                    break;
                 default: 
                     console.log("Default case for switcher with mode", mode);
             }

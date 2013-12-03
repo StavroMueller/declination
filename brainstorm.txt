@@ -31,3 +31,42 @@ could do airplane travel for now, just to get started
 Choose a home city
 
 the room specific function should always check for the game mode first
+
+talking to NPCs will add their info to a log - this will help people from forgetting what to do next. Maybe a hint system? That you can PAY for! A-ha! :P
+
+what are the core parts of this game? In other words, what do I need barebones to have a functional game?
+for the "first run", anyway
+Here's a list:
+	-Some sort of "Intro cinematic"
+    -Rooms:
+    	-3 minimum
+        -Specific art style
+        -These rooms should:
+        	-Hold items
+            -Be switched to when a position on the map is reached
+    -Interactables:
+    	-Should be used to solve puzzles, but not too much
+        -Should consist of:
+        	-Items used to solve puzzles
+            -NPCs that have dialogue
+        -Should be used to solve puzzles
+        -Items should:
+        	-Be picked up and put into an inventory
+            -Be able to be combined
+        -NPCs should: 
+        	-Provide entertainment
+            -Provide valuable information
+            -Have two animated images:
+            	-An idle animation
+                -A talking animation
+    -The map:
+    	-Should be a way to get between rooms?
+        -Do we even need this
+        -I don't know
+        -It's actually good justification for there being no "avatar" of the player
+        -Should be there - each location should just be horrendous stereotypes
+        -Some Ideas:
+        	-Alaska made entirely of ice and walruses
+            -Switzerland made entirely of watches and clocks
+            -Texas - trucks and cowboy hats
+            -France - everybody mentions bread cheese and wine

@@ -9,13 +9,22 @@
 //we go from there
 var sampleRoomConfig = {
     onEnter: "You enter the sample room. It's bland, and there's an old lady in the corner giving away toothpicks with small bits of meat on the end.",
-    roomImage: "images/rooms/001.png",
-    roomId: "999",
+    bgImage: "images/rooms/001.png",
+    id: "999",
     interactables: [
         new Interactable({
         	left: 50,
             top: 50,
-        }), //The defaults will take care of the dev object
+            activate: function() {
+                console.log("I'm the number one activator!");
+            },
+        }),
+        new Interactable({
+            left: 100,
+            top: 100,
+            description: "This is another object",
+            shortDescription: "test2"
+        }),//The defaults will take care of the dev object
     ]
 };
 
@@ -47,7 +56,7 @@ function Room(options) {
     "use strict";
     
     this.interactables = options.interactables;
-    this.roomId = options.roomId
+    this.id = options.id;
     
     this.draw = function () {
         //this is where we would make the map invisible, and then overlay the room page on top.
@@ -60,7 +69,7 @@ function Room(options) {
         var roomDiv= "#room";
        	
         var roomImgElement = $("<img/>", {
-            "src": "images/rooms/" + this.roomId + "/backgrounds/main.png",
+            "src": "images/rooms/" + this.id + "/backgrounds/main.png",
             "id": "roomBG",
             "width": "100%",
             "height": "100%",
@@ -79,27 +88,17 @@ function Room(options) {
             
             //html += entity.imageName + "' id='" + entity.id + "'";
         	console.log("Creating the interactable", entity);
+        	console.log(entity.activate);
+            var domElement = entity.generateDOMElement();
             
-            var itemElement = $("<img/>", {
-                "src": entity.imageURL,
-                "id": entity.shortDescription,
-            });
+        	console.log("Created the" , entity.shortDescription, "element as html:" , domElement);
+            $(roomDiv).append(domElement);
             
-            itemElement.css({
-                "top": entity.top + "px",
-                "left": entity.left + "px",
-        		"width": entity.width + "px",
-        		"height": entity.height + "px",
-                "position": "absolute",
-            });
-            
-        	console.log("Created the" , entity.shortDescription, "element as html:" , itemElement);
-            $(roomDiv).append(itemElement);
-            
-            if (entity.activate) {
+            if (typeof(entity.activate) != 'undefined') {
+        		console.log("There was a click for the entity", entity);
                 //Add a listener to the element for a click
                 //the functioni is in the entity activation
-                $("#" + entity.id).click(entity.activate);
+                $("#" + entity.shortDescription).click(entity.activate);
                 
             }
             
