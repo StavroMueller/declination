@@ -19,8 +19,15 @@ function Interactable(options) {
         type: "test",
         //We should be able to at leas make a square and a circle so you have to actually click on the object
         generalShape: "rectangle",
+        //Why is this called activate? This is the on-click function, but we want a more generic term, I think - for tablets and such.
         activate: function() {
-            console.log("Hey, you clikced me.");
+            Declination.game.interactableClicked(this);
+        },
+        onLook: function() {
+            //this will contain what happens when you look at the thing.
+        },
+        onTalk: function() {
+            //what should happen when you talk to the thing
         },
     });
     console.log("Creating entity with options", options);

@@ -15,7 +15,7 @@ var sampleRoomConfig = {
         new Interactable({
         	left: 50,
             top: 50,
-            activate: function() {
+           .onLook: function() {
                 console.log("I'm the number one activator!");
             },
         }),
@@ -62,7 +62,7 @@ function Room(options) {
         //this is where we would make the map invisible, and then overlay the room page on top.
         //something like 
         //Game.RoomMode();
-        //this function would de-activate the map and switch to the overall room thing
+        //this function would deactivate the map and switch to the overall room thing
         // we need a function to create the room div as well as destroy it completely when we're done.
         // and just for placeholding (really we will grab it from the global variable):
         
@@ -88,17 +88,17 @@ function Room(options) {
             
             //html += entity.imageName + "' id='" + entity.id + "'";
         	console.log("Creating the interactable", entity);
-        	console.log(entity.activate);
+        	console.log(entity.onLook);
             var domElement = entity.generateDOMElement();
             
         	console.log("Created the" , entity.shortDescription, "element as html:" , domElement);
             $(roomDiv).append(domElement);
             
-            if (typeof(entity.activate) != 'undefined') {
+            if (typeof(entity.onLook) != 'undefined') {
         		console.log("There was a click for the entity", entity);
                 //Add a listener to the element for a click
                 //the functioni is in the entity activation
-                $("#" + entity.shortDescription).click(entity.activate);
+                $("#" + entity.shortDescription).click(entity.onLook);
                 
             }
             

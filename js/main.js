@@ -1,7 +1,13 @@
 var Declination = {
 	config: {
         mapId: "#map",
-        roomId: "#room"
+        roomId: "#room",
+        uiPopup: {
+            id: "popup",
+            talkId: "#talkto",
+            lookId: "#lookat",
+            pickupId: "#pickup",
+        },
     }
 };
 
@@ -16,6 +22,7 @@ Declination.game = {
         this.inventory = {
             
             addItem: function(item) {
+                //This will just accept the interactable object.
                 //Will take in an item obejct? Should these be bare objects or translated from something else?
                 //Maybe an interactable can have a .geItemVersion? Actually that would be A case, but not THE case.
                 //This should take in an obect by default. 
@@ -30,6 +37,11 @@ Declination.game = {
             },
             
         };
+        
+        this.interactableClicked = function(interactable) {
+            console.log("The interactable", interactable.shortDescription, "has been clicked.");
+            Declination.ui.showClickPopup(interactable);
+        };
 	}
 };
 
@@ -41,6 +53,11 @@ Declination.ui = {
     init: function() {
         console.log("initted");    
     },
+    
+    showClickPopup: function(interactable) {
+        $(Declination.config.uiPopupId).fadeIn(500, function() {
+            
+    });
     
     setMode: function(mode) {
         //The modes will only ever be ON TOP of the map; we don't have to worry about setting the map, because it is always "underneath"

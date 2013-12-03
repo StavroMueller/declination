@@ -70,3 +70,14 @@ Here's a list:
             -Switzerland made entirely of watches and clocks
             -Texas - trucks and cowboy hats
             -France - everybody mentions bread cheese and wine
+    -The UI
+    	-There should be some way of choosing the way to interact - probably in a full throttle esque popup
+        	-The item itself could be zoomed in to the screen! And we could choose text to do stuff with it
+            	-this means that the default will always be look at? hm, this may present issues when looking at people. We could have it only for uitems though. 
+                -is this the right way to go? a simple popup would be much less complicated to implement, but the other method would "evolve" the mechanic a bit, though
+                 maybe for the worse.
+                -This would also ruin the opportunity for any sort of funny interactions when talking to an object
+            -We could have a little animation on objects when they are hovered, and the interface pop up when clicked. This may be the best way to go - FOR NOW!
+            -So for now it's settled - the fancy animation thing would be awesome, but too much for now. Maybe. I still like it. Maybe I'll try both.
+            -So, for the popup:
+            	-When the item is clicked, the event will fire and pass the method the entity - something like Declination.game.clicked(this), probably.
