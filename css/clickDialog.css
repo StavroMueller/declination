@@ -1,3 +1,53 @@
-md-something {
+html {
+    height:100%;
+    width: 100%;
+}
 
+/* http://tympanus.net/codrops/2013/06/25/nifty-modal-window-effects/ */
+.md-modal {
+    position: fixed;
+    top: 50%;
+    background-color: red;
+    left: 25%%;
+    width: 200px;
+    height: 150px;
+    text-align: center;
+    height: auto;
+    visibility: hidden;
+    backface-visibility:hidden;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+img.uiImage {
+    width:30%;
+    height: auto;
+    padding: 5px
+}
+
+.md-content {
+    background-color:green;
+    
+}
+
+.md-show {
+    visibility: visible;
+}
+
+.md-effect-1 .md-content {
+        -webkit-transform: scale(0.7);
+        -moz-transform: scale(0.7);
+        -ms-transform: scale(0.7);
+        transform: scale(0.7);
+        opacity: 0;
+        -webkit-transition: all .5s;
+        -moz-transition: all .5s;
+        transition: all .5s;
+}
+
+.md-show.md-effect-1 .md-content {
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
 }
