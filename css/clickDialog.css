@@ -6,7 +6,6 @@ html {
 /* http://tympanus.net/codrops/2013/06/25/nifty-modal-window-effects/ */
 .md-modal {
     position: absolute;
-    background-color: red;
     width: 200px;
     height: 150px;
     z-index: 2000;

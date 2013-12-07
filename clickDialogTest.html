@@ -3,19 +3,26 @@
     <link href="css/clickDialog.css" rel="stylesheet">
    	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
+        var open = false;
         function buttonClicked() {
             console.log("hi");
             $("#modalthing").addClass("md-show");
         }
         
         $(document).ready(function(){
+            $("#closeText").click(function() {
+                $("#modalthing").removeClass("md-show");
+            });
             $("#clickarea").click(function(event) {
-                console.log(event);
-                $("#modalthing").css({
-                    "top": event.pageY,
-                    "left": event.pageX,
-                });
-            	$("#modalthing").addClass("md-show");
+                if (!open) {
+                    open = true;
+                    console.log(event);
+                    $("#modalthing").css({
+                        "top": event.pageY,
+                        "left": event.pageX,
+                    });
+                    $("#modalthing").addClass("md-show");
+                }
             });
         });
         
@@ -30,6 +37,7 @@
                 <p>Hi there this is stuff</p>
                 <img id="takeIcon" class="uiImage" src="images/ui/handopen.png"/>
                 <img id="lookIcon" class="uiImage" src="images/ui/eyeopen.png"/>
+                <p id="closeText">close this thang</p>
             </div>
         </div>
     </div>

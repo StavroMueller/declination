@@ -50,15 +50,15 @@ Declination.ui = {
     
     //activeMode: "map",
     
+    popupActive: false,
+    
     init: function() {
         console.log("initted");    
     },
     
     showClickPopup: function(interactable) {
-        $(Declination.config.uiPopupId).fadeIn(500, function() {
-            
-    	});
-    }
+        
+    },
     
     setMode: function(mode) {
         //The modes will only ever be ON TOP of the map; we don't have to worry about setting the map, because it is always "underneath"

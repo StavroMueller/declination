@@ -18,6 +18,15 @@ var sampleRoomConfig = {
             activate: function() {
                 console.log("I'm the number one activator!");
             },
+            actions: {
+                onLook: function() {
+                    
+                    
+                },
+                onUse: function() {
+                    
+                    
+                },
         }),
         new Interactable({
             left: 100,
