@@ -7,16 +7,29 @@
             console.log("hi");
             $("#modalthing").addClass("md-show");
         }
+        
+        $(document).ready(function(){
+            $("#clickarea").click(function(event) {
+                console.log(event);
+                $("#modalthing").css({
+                    "top": event.pageY,
+                    "left": event.pageX,
+                });
+            	$("#modalthing").addClass("md-show");
+            });
+        });
+        
     </script>
 </head>
 <body>
     <button onclick="buttonClicked()" id="clickme">hi</button>
+    <div id="clickarea" style="width:1000px; height: 1000px; background-color: blue; z-index: 1;">
     <div class="md-modal md-effect-1" id="modalthing">
         <div class="md-content">
             <div id="controls">
                 <p>Hi there this is stuff</p>
-                <img class="uiImage" src="images/ui/handopen.png"/>
-                <img class="uiImage" src="images/ui/eyeopen.png"/>
+                <img id="takeIcon" class="uiImage" src="images/ui/handopen.png"/>
+                <img id="lookIcon" class="uiImage" src="images/ui/eyeopen.png"/>
             </div>
         </div>
     </div>

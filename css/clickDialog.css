@@ -5,12 +5,11 @@ html {
 
 /* http://tympanus.net/codrops/2013/06/25/nifty-modal-window-effects/ */
 .md-modal {
-    position: fixed;
-    top: 50%;
+    position: absolute;
     background-color: red;
-    left: 25%%;
     width: 200px;
     height: 150px;
+    z-index: 2000;
     text-align: center;
     height: auto;
     visibility: hidden;
