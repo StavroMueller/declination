@@ -56,8 +56,8 @@ Declination.ui = {
         console.log("initted");    
     },
     
-    showClickPopup: function(interactable) {
-        
+    showClickPopup: function(event, interactable) {
+       console.log("Showing ye olde popup with for event", event, "on interactable", interactable); 
     },
     
     setMode: function(mode) {

@@ -5,7 +5,7 @@
 //should coordinates be an obejct as well?
 
 
-//let's write the code for a door to begin with - just to be simple.
+//let's write the code for an item to begin with - just to be simple.
 function Interactable(options) {
     //Should these have urls or associated rooms? Actually they can jsut be passed in 
     _.defaults(options, {
@@ -16,11 +16,12 @@ function Interactable(options) {
         imageURL: "images/rooms/999/interactables/999.png",
         description: "This is the default description",
         shortDescription: "test",
-        type: "test",
         //We should be able to at leas make a square and a circle so you have to actually click on the object
         generalShape: "rectangle",
         //Why is this called activate? This is the on-click function, but we want a more generic term, I think - for tablets and such.
+        //This is the topmost - this is what absolutely happens when the elemnt is clicked. We can choose to show the UI, or do something completely different.
         activate: function() {
+            //The default here doesn't work - it's the this
             Declination.game.interactableClicked(this);
         },
         actions: {
@@ -32,23 +33,15 @@ function Interactable(options) {
         	},
             onUse: function() {
                 Declination.game.characterSay(mainGuy, "I can't use that.");
-                
             },
         },
     });
     console.log("Creating entity with options", options);
-    if (options.type = "door") {
-        //leads to something
-        this.leadsTo = options.leadsTo;
-    }
-    if (options.type = "item") {
-        console.log("blah");
-    }
+    //The doors and items and npc can be derived from this. 
     
     //This should really be done in a loop
     this.top = options.top;
     this.left = options.left;
-    this.type = options.type;
     this.description = options.description;
     this.activate = options.activate;
     this.actions = options.actions;
@@ -76,7 +69,7 @@ function Interactable(options) {
             "width": this.width + "px",
             "height": this.height + "px",
             "position": "absolute",
-        });
+        }).addClass("interactable");;
         
         return itemElement;
         

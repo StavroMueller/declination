@@ -59,6 +59,7 @@ Here's a list:
             -Have two animated images:
             	-An idle animation
                 -A talking animation
+        -On hover, there should be a sort of update of the UI to show which item the user is hovering over.
     -The map:
     	-Should be a way to get between rooms?
         -Do we even need this

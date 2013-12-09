@@ -22,6 +22,11 @@ p.notes {
 	font-family: 'Rock Salt', cursive;
 }
 
+/*This class represents anything that can be clicked*/
+.interactable {
+    
+}
+
 #container {
 	padding: 10px;
     margin: 10px auto 10px auto;

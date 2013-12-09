@@ -15,24 +15,33 @@ var sampleRoomConfig = {
         new Interactable({
         	left: 50,
             top: 50,
-            activate: function() {
+            shortDescription: "testinstuffs",
+            activate: function(event, entity) {
+                //This happens whenever the event is clicked - the first is the jquery event
                 console.log("I'm the number one activator!");
+                Declination.ui.showClickPopup(event,entity);
             },
             actions: {
                 onLook: function() {
-                    
+                    //Declination.game.say("This object makes me feel testy.")
                     
                 },
                 onUse: function() {
-                    
+                    //Declination.game.say("Yes, I feel like this belongs in my pocket.");
+                   	//Declination.game.addToInventory(this);
+                    //Declination.game.removeFromRoom(this);
                     
                 },
+            },
         }),
         new Interactable({
             left: 100,
             top: 100,
             description: "This is another object",
-            shortDescription: "test2"
+            shortDescription: "test2",
+            activate: function() {
+                console.log("meep");
+            },
         }),//The defaults will take care of the dev object
     ]
 };
@@ -103,15 +112,38 @@ function Room(options) {
         	console.log("Created the" , entity.shortDescription, "element as html:" , domElement);
             $(roomDiv).append(domElement);
             
+        	/*
             if (typeof(entity.activate) != 'undefined') {
         		console.log("There was a click for the entity", entity);
                 //Add a listener to the element for a click
                 //the functioni is in the entity activation
-                $("#" + entity.shortDescription).click(entity.activate);
+                $("#" + entity.shortDescription).click(function(event) {
+        			entity.activate(event, entity);
+        		});
                 
             }
+            */
             
             
         });
+        
+        $(".interactable").bind('click', {interactables: this.interactables,},function(event) {
+       		//so, what needs to happen here? The modal window needs to be shown at the click location, and has to be edited according to the 
+        	//particular interactable.
+        	//Why is this a class now instead of being on each object? Because we want one modal window generation, not multiples.
+        	console.log(event.data.interactables);
+        	var id = this.id;
+        	console.log(id," was clicked");
+        	//I really don't want to do a search through all of the interactables...
+        	//But seems to me, at least when I am tired and stressed, that that's the only way to go.
+        	_.each(event.data.interactables, function(entity) {
+        		//(The div id is the short description)
+        		console.log(entity.shortDescription, id);
+        		if (entity.shortDescription == id) {
+        			Declination.ui.showClickPopup(event, entity);
+        		}
+        	});
+        });
     };
+    
 }
