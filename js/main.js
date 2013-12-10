@@ -3,10 +3,10 @@ var Declination = {
         mapId: "#map",
         roomId: "#room",
         uiPopup: {
-            id: "popup",
+            id: "#clickMenu",
             talkId: "#talkto",
             lookId: "#lookat",
-            pickupId: "#pickup",
+            useId: "#pickup",
         },
     }
 };
@@ -56,8 +56,50 @@ Declination.ui = {
         console.log("initted");    
     },
     
+    repositionAndRedesignate: function(event, interactable) {
+        console.log("Showing ye olde popup with for event", event, "on interactable", interactable); 
+        console.log("Adding top style", event.currentTarget.style.top.match(/\d+/g), "type", typeof(event.currentTarget.style.top), "to offsetX", event.offsetX, "type", typeof(event.offsetX), "a total of", (parseInt(event.currentTarget.style.top.match(/\d+/g)[0]) + event.offsetX) + "px");
+        $(Declination.config.uiPopup.id).css({
+           //There might could be a global parameter instead of px - that way can change to percent easily for scaling
+           //There's gotta be a better way to do this
+           "top": (parseInt(event.currentTarget.style.top.match(/\d+/g)[0]) + event.offsetY) + "px",
+           "left": (parseInt(event.currentTarget.style.left.match(/\d+/g)[0]) + event.offsetX) + "px",
+        });
+        $(Declination.config.uiPopup.lookId).click(function() {
+           interactable.onLook();
+        });
+    },
+    
     showClickPopup: function(event, interactable) {
-       console.log("Showing ye olde popup with for event", event, "on interactable", interactable); 
+        console.log("=====================clickpupup===============");
+        //If there is no modal open: fade in and show.
+        //If there is a modal open but on the wrong interactable, fade it out and then in at the right spot.
+        //Otherwise, close the modal. (maybe done with a listener on the room itself)
+        //
+        //What needs to happen?
+        //-The div needs to disappear
+        //-Everything else happens
+        //-The div appears
+        //We want to avoid any UI weirdness for the user - the UI moving and then disappearing, etc.
+        //So - we need an if at the beginning
+        //These steps below happen regardless of the visibility of the popup
+        //Now we decide how to show the popup
+        //TODO: I think the .on is stacking, making multiple listeners. FIX THIS
+        if ($(Declination.config.uiPopup.id).css("visibility") == "visible") {
+            console.log("it's visible");
+            $(Declination.config.uiPopup.id).removeClass("md-show").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+                                                                      function(){
+                                                                        console.log("REPOSAND");
+                                                                        Declination.ui.repositionAndRedesignate(event, interactable);
+                                                                        console.log("NOREPOSAND");
+                                                                      	$(Declination.config.uiPopup.id).addClass("md-show");    
+                                                                      });
+        } else {
+            //This means the dialog is not visible
+            console.log("It isn't visible.");
+            this.repositionAndRedesignate(event, interactable);
+            $(Declination.config.uiPopup.id).addClass("md-show");
+        }
     },
     
     setMode: function(mode) {

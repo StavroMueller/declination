@@ -83,3 +83,8 @@ Here's a list:
             -So, for the popup:
             	-When the item is clicked, the event will fire and pass the method the entity - something like Declination.game.clicked(this), probably.
                 -Was thinking about making the images changing on hover - I think we shouldn't look at this because tablets can't hover.
+            -All the interaction options:
+            	-take
+                -look
+                -use
+                -talk

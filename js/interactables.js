@@ -24,16 +24,17 @@ function Interactable(options) {
             //The default here doesn't work - it's the this
             Declination.game.interactableClicked(this);
         },
-        actions: {
-            onLook: function() {
-                Declination.game.characterSay(mainGuy, "I can't look at this.");
-        	},
-        	onTalk: function() {
-            	Declination.game.characterSay(mainGuy, "I don't want to talk to this.");
-        	},
-            onUse: function() {
-                Declination.game.characterSay(mainGuy, "I can't use that.");
-            },
+        onLook: function() {
+            //mainGuy, "I can't look at this.");
+            console.log("Default on look");
+        },
+        onTalk: function() {
+            //Declination.game.characterSay(mainGuy, "I don't want to talk to this.");
+            console.log("Default on talk");
+        },
+        onUse: function() {
+            //Declination.game.characterSay(mainGuy, "I can't use that.");
+            console.log("Default on use");
         },
     });
     console.log("Creating entity with options", options);
@@ -44,7 +45,9 @@ function Interactable(options) {
     this.left = options.left;
     this.description = options.description;
     this.activate = options.activate;
-    this.actions = options.actions;
+    this.onLook = options.onLook;
+    this.onTalk = options.onTalk;
+    this.onUse = options.onUse;
     this.shortDescription = options.shortDescription;
     this.imageURL = options.imageURL;
     this.width = options.width;
@@ -74,4 +77,6 @@ function Interactable(options) {
         return itemElement;
         
     };
+    
+    
 }

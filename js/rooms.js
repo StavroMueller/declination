@@ -18,21 +18,23 @@ var sampleRoomConfig = {
             shortDescription: "testinstuffs",
             activate: function(event, entity) {
                 //This happens whenever the event is clicked - the first is the jquery event
+                //Why a seperate activate function? Because maybe we don't want to show the UI every time.
                 console.log("I'm the number one activator!");
                 Declination.ui.showClickPopup(event,entity);
             },
-            actions: {
-                onLook: function() {
-                    //Declination.game.say("This object makes me feel testy.")
-                    
-                },
-                onUse: function() {
-                    //Declination.game.say("Yes, I feel like this belongs in my pocket.");
-                   	//Declination.game.addToInventory(this);
-                    //Declination.game.removeFromRoom(this);
-                    
-                },
+           
+            onLook: function() {
+                //Declination.game.say("This object makes me feel testy.")
+                console.log("I'm looking at the", this.shortDescription, "!", "For", this);
+                
             },
+            onUse: function() {
+                //Declination.game.say("Yes, I feel like this belongs in my pocket.");
+                //Declination.game.addToInventory(this);
+                //Declination.game.removeFromRoom(this);
+                
+            },
+    
         }),
         new Interactable({
             left: 100,
@@ -43,6 +45,12 @@ var sampleRoomConfig = {
                 console.log("meep");
             },
         }),//The defaults will take care of the dev object
+        new Interactable({
+            left: 300,
+            top: 50,
+            description: "blah",
+            shortDescription: "farAway",
+        }),
     ]
 };
 
@@ -140,7 +148,9 @@ function Room(options) {
         		//(The div id is the short description)
         		console.log(entity.shortDescription, id);
         		if (entity.shortDescription == id) {
+        			console.log("Calling click popup");
         			Declination.ui.showClickPopup(event, entity);
+        			return;
         		}
         	});
         });
