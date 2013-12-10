@@ -53,18 +53,27 @@ Declination.ui = {
     popupActive: false,
     
     init: function() {
+        //I think all the permanent listeners should be here  - the one to close the clck dialog in specific
         console.log("initted");    
     },
     
-    repositionAndRedesignate: function(event, interactable) {
+    repositionAndRedesignate: function(event, interactable, visible) {
         console.log("Showing ye olde popup with for event", event, "on interactable", interactable); 
         console.log("Adding top style", event.currentTarget.style.top.match(/\d+/g), "type", typeof(event.currentTarget.style.top), "to offsetX", event.offsetX, "type", typeof(event.offsetX), "a total of", (parseInt(event.currentTarget.style.top.match(/\d+/g)[0]) + event.offsetX) + "px");
-        $(Declination.config.uiPopup.id).css({
-           //There might could be a global parameter instead of px - that way can change to percent easily for scaling
-           //There's gotta be a better way to do this
-           "top": (parseInt(event.currentTarget.style.top.match(/\d+/g)[0]) + event.offsetY) + "px",
-           "left": (parseInt(event.currentTarget.style.left.match(/\d+/g)[0]) + event.offsetX) + "px",
-        });
+        if (visible) {
+           $(Declination.config.uiPopup.id).animate({
+           		"top": (parseInt(event.currentTarget.style.top.match(/\d+/g)[0]) + event.offsetY) + "px",
+                "left": (parseInt(event.currentTarget.style.left.match(/\d+/g)[0]) + event.offsetX) + "px",
+           });
+        }
+        else {
+            $(Declination.config.uiPopup.id).css({
+               //There might could be a global parameter instead of px - that way can change to percent easily for scaling
+               //There's gotta be a better way to do this
+               "top": (parseInt(event.currentTarget.style.top.match(/\d+/g)[0]) + event.offsetY) + "px",
+               "left": (parseInt(event.currentTarget.style.left.match(/\d+/g)[0]) + event.offsetX) + "px",
+            });
+        }
         $(Declination.config.uiPopup.lookId).click(function() {
            interactable.onLook();
         });
@@ -84,20 +93,17 @@ Declination.ui = {
         //So - we need an if at the beginning
         //These steps below happen regardless of the visibility of the popup
         //Now we decide how to show the popup
-        //TODO: I think the .on is stacking, making multiple listeners. FIX THIS
+        //TODO: I think the .on is stacking, making multiple listeners. FIX THIS - UNACCEPTABLE
+        //New plan - just translate the damn thing to the new position.
+        //Transitions are taken care of in the css
+        
         if ($(Declination.config.uiPopup.id).css("visibility") == "visible") {
             console.log("it's visible");
-            $(Declination.config.uiPopup.id).removeClass("md-show").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
-                                                                      function(){
-                                                                        console.log("REPOSAND");
-                                                                        Declination.ui.repositionAndRedesignate(event, interactable);
-                                                                        console.log("NOREPOSAND");
-                                                                      	$(Declination.config.uiPopup.id).addClass("md-show");    
-                                                                      });
+            Declination.ui.repositionAndRedesignate(event, interactable, true);
         } else {
             //This means the dialog is not visible
             console.log("It isn't visible.");
-            this.repositionAndRedesignate(event, interactable);
+            this.repositionAndRedesignate(event, interactable, false);
             $(Declination.config.uiPopup.id).addClass("md-show");
         }
     },
