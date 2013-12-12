@@ -88,3 +88,9 @@ Here's a list:
                 -look
                 -use
                 -talk
+            -The ui should go away whenever an interaction option is chosen.
+                
+                
+ NPC Ideas:
+ 	-A guy whos only dialogue is placeholder text,resulting in funny nonsensical things...
+    -A stats guy

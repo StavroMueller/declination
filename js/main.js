@@ -4,8 +4,9 @@ var Declination = {
         roomId: "#room",
         uiPopup: {
             id: "#clickMenu",
-            talkId: "#talkto",
-            lookId: "#lookat",
+            itemNameId: "#itemName",
+            talkId: "#talkIcon",
+            lookId: "#lookIcon",
             useId: "#pickup",
         },
     }
@@ -54,6 +55,11 @@ Declination.ui = {
     
     init: function() {
         //I think all the permanent listeners should be here  - the one to close the clck dialog in specific
+        $("#closeText").click(function() {
+            console.log("remove calasssiasd.jslkjehw");
+            $(Declination.config.uiPopup.id).removeClass("md-show");
+            
+        });
         console.log("initted");    
     },
     
