@@ -56,9 +56,7 @@ Declination.ui = {
     init: function() {
         //I think all the permanent listeners should be here  - the one to close the clck dialog in specific
         $("#closeText").click(function() {
-            console.log("remove calasssiasd.jslkjehw");
             $(Declination.config.uiPopup.id).removeClass("md-show");
-            
         });
         console.log("initted");    
     },
@@ -80,9 +78,11 @@ Declination.ui = {
                "left": (parseInt(event.currentTarget.style.left.match(/\d+/g)[0]) + event.offsetX) + "px",
             });
         }
+        $(Declination.config.uiPopup.itemNameId).text(interactable.shortDescription);
         $(Declination.config.uiPopup.lookId).click(function() {
            interactable.onLook();
         });
+        
     },
     
     showClickPopup: function(event, interactable) {
