@@ -22,7 +22,6 @@ var sampleRoomConfig = {
                 console.log("I'm the number one activator!");
                 Declination.ui.showClickPopup(event,entity);
             },
-           
             onLook: function() {
                 //Declination.game.say("This object makes me feel testy.")
                 console.log("I'm looking at the", this.shortDescription, "!", "For", this);

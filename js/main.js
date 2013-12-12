@@ -5,6 +5,7 @@ var Declination = {
         uiPopup: {
             id: "#clickMenu",
             itemNameId: "#itemName",
+            uiImageClass: ".uiImage",
             talkId: "#talkIcon",
             lookId: "#lookIcon",
             useId: "#pickup",
@@ -62,6 +63,7 @@ Declination.ui = {
     },
     
     repositionAndRedesignate: function(event, interactable, visible) {
+        //First, we need to move the popup.
         console.log("Showing ye olde popup with for event", event, "on interactable", interactable); 
         console.log("Adding top style", event.currentTarget.style.top.match(/\d+/g), "type", typeof(event.currentTarget.style.top), "to offsetX", event.offsetX, "type", typeof(event.offsetX), "a total of", (parseInt(event.currentTarget.style.top.match(/\d+/g)[0]) + event.offsetX) + "px");
         if (visible) {
@@ -79,6 +81,9 @@ Declination.ui = {
             });
         }
         $(Declination.config.uiPopup.itemNameId).text(interactable.shortDescription);
+        
+        //Then, we make new listeners. First we have to remove the old ones.
+        $(Declination.config.uiPopup.uiImageClass).off();
         $(Declination.config.uiPopup.lookId).click(function() {
            interactable.onLook();
         });
