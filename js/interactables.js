@@ -36,6 +36,9 @@ function Interactable(options) {
             //Declination.game.characterSay(mainGuy, "I can't use that.");
             console.log("Default on use");
         },
+        onTake: function() {
+            console.log("I can't take this");
+        },
     });
     console.log("Creating entity with options", options);
     //The doors and items and npc can be derived from this. 
@@ -54,11 +57,22 @@ function Interactable(options) {
     this.height = options.height;
     this.xCenter = options.xCenter;
     this.yCenter = options.yCenter;
+    this.onTake = options.onTake;
+    //this.inventoryElement = Here will be a jquery element that we create on init, for them to add to the inventory. It
+    this.inventoryElement = $("<img/>", {
+        "src": this.imageURL,
+        "id": this.shortDescription + "inv",
+        "class": "inventoryImage", //This should be less magic
+    }).css({
+        //here will go some css stuff...I think mostly for positioning and class
+    });
     
     this.generateDOMElement = function() {
         //Generates a DOME element! ....
         //This will return the dom element of the interactable - this is because the traits will be different 
         //based on which type of interactable we are. (People have animations and text, etc.)
+        //Actually...it might be worth it to move ALL of the interactable stuff to this instead of main.
+        //Not now though. "Eventually"! (Which...in programming...means this will stay permanent!)
         console.log("Creating the interactable", this);
             
         var itemElement = $("<img/>", {
@@ -78,5 +92,24 @@ function Interactable(options) {
         
     };
     
-    
+    //Private
+    this.addToInventory = function() {
+        //What is best - generate this on init, or not? I guess not - that way we only get it for pickupable items
+    	var inventoryElement = $("<img/>", {
+        	"src": this.imageURL,
+        	"id": this.shortDescription + "inv",
+        	"class": "inventoryImage", //This should be less magic
+    	}).css({
+        //here will go some css stuff...I think mostly for positioning and class
+            "width": "150px",
+            "height": "150px",
+    	}).click(function() {
+        	//The clicky stuff should happen here    
+            //This is what happens when you clikc the item in the inventory
+            console.log("clickenstuffs");
+            
+        });
+        //TODO: This should be animated! Not going to worry about that now though.
+        $(Declination.config.inventoryId).append(inventoryElement);
+    };
 }

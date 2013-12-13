@@ -31,7 +31,12 @@ var sampleRoomConfig = {
                 //Declination.game.say("Yes, I feel like this belongs in my pocket.");
                 //Declination.game.addToInventory(this);
                 //Declination.game.removeFromRoom(this);
+                console.log("use me");
                 
+            },
+            onTake: function() {
+            	//Declination.game.say("TAKING the TEST item!");   
+                this.addToInventory();
             },
     
         }),

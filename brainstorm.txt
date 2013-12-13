@@ -60,6 +60,10 @@ Here's a list:
             	-An idle animation
                 -A talking animation
         -On hover, there should be a sort of update of the UI to show which item the user is hovering over.
+        -They should interact with each other. This means that you can "choose" one from inventory and apply it to another interactable
+         and have something happen.
+         	-How could we do this? Let's see...you will of course have a listener on each item in the inventory, and every item is part of an item class. (.inventoryItem or something). 
+             you could then have a click listener on these that attaches the image to the mouse for the user to click on another item. 
     -The map:
     	-Should be a way to get between rooms?
         -Do we even need this

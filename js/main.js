@@ -2,13 +2,15 @@ var Declination = {
 	config: {
         mapId: "#map",
         roomId: "#room",
+        inventoryId: "#inventory",
         uiPopup: {
             id: "#clickMenu",
             itemNameId: "#itemName",
             uiImageClass: ".uiImage",
             talkId: "#talkIcon",
             lookId: "#lookIcon",
-            useId: "#pickup",
+            useId: "#useIcon",
+           	takeId: "#takeIcon", 
         },
     }
 };
@@ -82,10 +84,16 @@ Declination.ui = {
         }
         $(Declination.config.uiPopup.itemNameId).text(interactable.shortDescription);
         
-        //Then, we make new listeners. First we have to remove the old ones.
+        //Then, we make new listeners. First we have to remove the old ones. (From all of the ui images)
         $(Declination.config.uiPopup.uiImageClass).off();
         $(Declination.config.uiPopup.lookId).click(function() {
-           interactable.onLook();
+            $(Declination.config.uiPopup.id).removeClass("md-show");
+            interactable.onLook();
+        });
+        $(Declination.config.uiPopup.takeId).click(function() {
+            $(Declination.config.uiPopup.id).removeClass("md-show");
+            console.log("Taking", interactable);
+            interactable.onTake();
         });
         
     },
@@ -118,6 +126,7 @@ Declination.ui = {
             $(Declination.config.uiPopup.id).addClass("md-show");
         }
     },
+    
     
     setMode: function(mode) {
         //The modes will only ever be ON TOP of the map; we don't have to worry about setting the map, because it is always "underneath"

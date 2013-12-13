@@ -43,6 +43,12 @@ p.notes {
     height:100%;
 }
 
+#inventory {
+    background-color: blue;
+    height:40%;
+    margin: 10px;
+}
+
 #leftside {
     position: relative;
     float:left;
