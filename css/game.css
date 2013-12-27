@@ -27,6 +27,12 @@ p.notes {
     
 }
 
+.inventoryImage {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+}
+
 #container {
 	padding: 10px;
     margin: 10px auto 10px auto;
@@ -41,10 +47,12 @@ p.notes {
 
 #playArea {
     height:100%;
+    position: relative;
 }
 
 #inventory {
     background-color: blue;
+    position: relative;
     height:40%;
     margin: 10px;
 }

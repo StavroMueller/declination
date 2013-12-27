@@ -5,6 +5,7 @@ function Character() {
     
     this.say = function(text) {
         
+        
     }
 }
 

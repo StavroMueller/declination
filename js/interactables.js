@@ -88,6 +88,7 @@ function Interactable(options) {
             "position": "absolute",
         }).addClass("interactable");;
         
+        this.itemElement = itemElement;
         return itemElement;
         
     };
@@ -99,17 +100,32 @@ function Interactable(options) {
         	"src": this.imageURL,
         	"id": this.shortDescription + "inv",
         	"class": "inventoryImage", //This should be less magic
-    	}).css({
-        //here will go some css stuff...I think mostly for positioning and class
-            "width": "150px",
-            "height": "150px",
+            "style": "z-index: 20",
     	}).click(function() {
         	//The clicky stuff should happen here    
             //This is what happens when you clikc the item in the inventory
             console.log("clickenstuffs");
+            console.log(inventoryElement);
+            $(inventoryElement).css({
+                "position": "absolute",
+            });
+            $("#playArea").mousemove(function(e) {
+              console.log("moving");
+                console.log(e);
+              //Here we need to check what the active div is to make sure that we position 
+              //the element correctly
+              $(inventoryElement).css({
+                  "top": e.pageY,
+                  "left": e.offsetX,
+              });
+            });
             
         });
         //TODO: This should be animated! Not going to worry about that now though.
-        $(Declination.config.inventoryId).append(inventoryElement);
+        $("#playArea").append(inventoryElement);
+        
+        //Then we need to remove the item from the playing field
+        this.itemElement.remove();
+       	 
     };
 }
