@@ -44,6 +44,7 @@ Here's a list:
         -These rooms should:
         	-Hold items
             -Be switched to when a position on the map is reached
+        -Be related to each other via a two dimensional array. 
     -Interactables:
     	-Should be used to solve puzzles, but not too much
         -Should consist of:
@@ -59,11 +60,18 @@ Here's a list:
             -Have two animated images:
             	-An idle animation
                 -A talking animation
+            -The ONLY distinction between an npx and an item will be the on talk event. Everything else will be the same. There will
+             be seperate dialog libraries, but that's about it.
+            -Each character could be stored in JSON, and that would be fed in to generic functions on the entities themselves. 
+            -Have DIALOG, that should:
+                -Be stored in some dynamic structure
         -On hover, there should be a sort of update of the UI to show which item the user is hovering over.
         -They should interact with each other. This means that you can "choose" one from inventory and apply it to another interactable
          and have something happen.
          	-How could we do this? Let's see...you will of course have a listener on each item in the inventory, and every item is part of an item class. (.inventoryItem or something). 
              you could then have a click listener on these that attaches the image to the mouse for the user to click on another item. 
+             -We should only have non-inventory combinations for now (eg - dragging from inventory to playing field and combining there
+             
     -The map:
     	-Should be a way to get between rooms?
         -Do we even need this
@@ -93,6 +101,7 @@ Here's a list:
                 -use
                 -talk
             -The ui should go away whenever an interaction option is chosen.
+      
                 
                 
  NPC Ideas:

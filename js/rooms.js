@@ -7,6 +7,34 @@
 // http://stackoverflow.com/questions/2159044/getting-the-x-y-coordinates-of-a-mouse-click-on-an-image-with-jquery
 //jquery can get the coords of a click - we can check if the click is within the coords of an object, and then 
 //we go from there
+
+//Here are some sample interactables
+var JerryTestingford = new Interactable({
+    top: 40,
+    left: 30,
+    imageURL: Characters['Jerry'].imageURL;
+    shortDescription: "Jerrymeister",
+    description: "He was always the bell of the ball",
+    activate: function(event, entity) {
+        Declination.ui.showClickPopup(event, entity);
+    },
+    onLook: function() {
+        Declination.ui.showMonologue("It's old jerry. He's the tester.")
+    },
+    onUse: function() {
+        Declination.ui.showMonologue("I don't use people");
+    }
+    onTake: function() {
+        Declination.ui.showMonologue("Nah");
+    },
+    onMouth: function(event, entity) {
+        Declination.game.startDialog(Characters.['Jerry'].dialog);
+    }
+
+
+
+})
+
 var sampleRoomConfig = {
     onEnter: "You enter the sample room. It's bland, and there's an old lady in the corner giving away toothpicks with small bits of meat on the end.",
     bgImage: "images/rooms/001.png",
@@ -59,12 +87,21 @@ var sampleRoomConfig = {
 };
 
 //This will take in an array, I think, of all the rooms
-function RoomSet(rooms) {
-    "use strict";
- 
-    
-}
+//This will be a two dimensional array of all the rooms, handling their relations and such 
+function RoomSet(roomArray) {
+    this.currentPosition = {x: 0, y: 0};
+    this.rooms = roomArray;
 
+    //This should have functions for:
+    //
+    //  Generating ("drawing") the current room
+    //  
+    //
+    //
+    //
+    //
+    //
+}
 
 //The options object will look something like this:
 //{
@@ -82,6 +119,7 @@ function RoomSet(rooms) {
 //
 //
 
+//There should be a function to only draw the entitie that haven't been picked up
 function Room(options) {
     "use strict";
     
@@ -153,7 +191,22 @@ function Room(options) {
         		console.log(entity.shortDescription, id);
         		if (entity.shortDescription == id) {
         			console.log("Calling click popup");
-        			Declination.ui.showClickPopup(event, entity);
+        			//Here is where we could put the click handlers? We need one for a:
+        			//
+        			// Regular click
+        			// and a click in the "combination mode"
+        			if (Declination.game.combinationMode) {
+        				//Do the combination mode stuff here
+        				console.log("Turning off combination mode");
+        				Declination.game.combinationMode = false;
+        				entity.combineWith(Declination.game.getCombiningItem());
+        			}
+        			else {
+                        //if it can be picked up
+                        console.log("Popping off the entity", entity)
+                        event.data.interactables.pop[entity];
+        				Declination.ui.showClickPopup(event, entity);
+        			}
         			return;
         		}
         	});

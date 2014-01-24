@@ -18,6 +18,8 @@ function Interactable(options) {
         shortDescription: "test",
         //We should be able to at leas make a square and a circle so you have to actually click on the object
         generalShape: "rectangle",
+        
+        acceptsItems: ["someItem", "test"];
         //Why is this called activate? This is the on-click function, but we want a more generic term, I think - for tablets and such.
         //This is the topmost - this is what absolutely happens when the elemnt is clicked. We can choose to show the UI, or do something completely different.
         activate: function() {
@@ -58,6 +60,7 @@ function Interactable(options) {
     this.xCenter = options.xCenter;
     this.yCenter = options.yCenter;
     this.onTake = options.onTake;
+    this.combinesWith = options.combinesWith;
     //this.inventoryElement = Here will be a jquery element that we create on init, for them to add to the inventory. It
     this.inventoryElement = $("<img/>", {
         "src": this.imageURL,
@@ -96,6 +99,17 @@ function Interactable(options) {
     //Private
     this.addToInventory = function() {
         //What is best - generate this on init, or not? I guess not - that way we only get it for pickupable items
+        // Ok, what's the best way to handle which item is "active" - that is, following the mouse?
+        // There could be a global mode tat looks - or we could just have a click event on each item for the CORRECT one - 
+       	// In other words - 
+        //
+        // combinesWith: [{
+        // 		name: item description
+        //		action: function() {
+        //			this is the stuff that happens when it is clicked on with the correct item
+        //
+        // That way we could have the items we want specialized responses for to be on there, and then we could leave the rest up to a default.
+        // we could have a "mode" thatholds which item is selected and whether it is on or not
     	var inventoryElement = $("<img/>", {
         	"src": this.imageURL,
         	"id": this.shortDescription + "inv",
@@ -106,26 +120,35 @@ function Interactable(options) {
             //This is what happens when you clikc the item in the inventory
             console.log("clickenstuffs");
             console.log(inventoryElement);
+            console.log("Changing to combination mode");
+            //This can't be the best way to do this
+            Declination.game.combinationMode = true;
             $(inventoryElement).css({
                 "position": "absolute",
             });
             $("#playArea").mousemove(function(e) {
               console.log("moving");
-                console.log(e);
+              console.log(e);
               //Here we need to check what the active div is to make sure that we position 
               //the element correctly
               $(inventoryElement).css({
-                  "top": e.pageY,
-                  "left": e.offsetX,
+                  "top": e.offsetX,
+                  "left": e.offsetY,
               });
             });
             
         });
         //TODO: This should be animated! Not going to worry about that now though.
-        $("#playArea").append(inventoryElement);
+        $("#inventory").append(inventoryElement);
         
         //Then we need to remove the item from the playing field
         this.itemElement.remove();
-       	 
+    };
+    
+    this.combineWith = function(incomingEntity) {
+       //should this be public or private? 
+       if ($.inArray(incomingEntity.shortDescription, this.acceptsItems)) {
+           
+       }
     };
 }

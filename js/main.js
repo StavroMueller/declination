@@ -18,6 +18,8 @@ var Declination = {
 // This will handle strictly game mechanic stuff - 
 // Randomness, chances, that sort of thing
 Declination.game = {
+    
+    combinationMode: false,
 
 	init: function () {
 		console.log("game init");
