@@ -16,10 +16,7 @@ function Interactable(options) {
         imageURL: "images/rooms/999/interactables/999.png",
         description: "This is the default description",
         shortDescription: "test",
-        //We should be able to at leas make a square and a circle so you have to actually click on the object
-        generalShape: "rectangle",
-        
-        acceptsItems: ["someItem", "test"];
+        acceptsItems: ["someItem", "test"],
         //Why is this called activate? This is the on-click function, but we want a more generic term, I think - for tablets and such.
         //This is the topmost - this is what absolutely happens when the elemnt is clicked. We can choose to show the UI, or do something completely different.
         activate: function() {

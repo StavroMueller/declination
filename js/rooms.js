@@ -7,12 +7,11 @@
 // http://stackoverflow.com/questions/2159044/getting-the-x-y-coordinates-of-a-mouse-click-on-an-image-with-jquery
 //jquery can get the coords of a click - we can check if the click is within the coords of an object, and then 
 //we go from there
-
 //Here are some sample interactables
 var JerryTestingford = new Interactable({
     top: 40,
     left: 30,
-    imageURL: Characters['Jerry'].imageURL;
+    //imageURL: Characters['Jerry'].imageURL,
     shortDescription: "Jerrymeister",
     description: "He was always the bell of the ball",
     activate: function(event, entity) {
@@ -23,17 +22,15 @@ var JerryTestingford = new Interactable({
     },
     onUse: function() {
         Declination.ui.showMonologue("I don't use people");
-    }
+    },
     onTake: function() {
         Declination.ui.showMonologue("Nah");
     },
     onMouth: function(event, entity) {
-        Declination.game.startDialog(Characters.['Jerry'].dialog);
-    }
+        //Declination.game.startDialog(Characters['Jerry'].dialog);
+    },
 
-
-
-})
+});
 
 var sampleRoomConfig = {
     onEnter: "You enter the sample room. It's bland, and there's an old lady in the corner giving away toothpicks with small bits of meat on the end.",

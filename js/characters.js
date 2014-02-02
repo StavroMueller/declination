@@ -12,12 +12,24 @@ function Character() {
 //Here is a dialog thing, is this needed?
 //What does this need to do? It needs to handle one "Block" of text and 
 //tell the calling function where to go "next"
+//once the nextDialog thing is null, we can have a default leave message
 //Maybe it can be like a linked list? while the next dialog isn't null, 
 //
 // -Display the text given
 // -Display the response choices given
-// -Have a listener on the response choice <p> tags and that listener wil;l be a function that just
+// -Have a listener on the response choice <p> tags and that listener will be a function that just
 //	sets the nextDialog parameter to the number that we want to go to
+// -By which mechanism will the dialog move forward? here is the action chain:
+// 		-The user clicks on the guy
+//		-This calls the action popup, the mouth is selected
+//		-This starts the dialog function. The function will:
+//			-Take in Jerry's character entry
+//			-Enter a sort of "locked" dialog mode - nothing else can be clicked when in this mode, only the dialog options
+//			-Display the 0th array element - the introduction
+//
+//
+//
+//
 
 function DialogBlock(text) {
 
