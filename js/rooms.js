@@ -28,6 +28,7 @@ var JerryTestingford = new Interactable({
     },
     onMouth: function(event, entity) {
         //Declination.game.startDialog(Characters['Jerry'].dialog);
+        Declination.game.startDialog(Characters['Jerry'], this);
     },
 
 });

@@ -3,6 +3,8 @@ var Declination = {
         mapId: "#map",
         roomId: "#room",
         inventoryId: "#inventory",
+        choiceBoxId: "#choices",
+        selfId: "#self",
         uiPopup: {
             id: "#clickMenu",
             itemNameId: "#itemName",
@@ -164,7 +166,11 @@ Declination.ui = {
     addToInventory: function(itemId) {
     	//This will add a picture of the item to the inventory
         console.log("bloh");
-	}
+	},
+
+    displayConversationText: function(text, interactable) {
+        console.log("Display text '", text, "' on", interactable);
+    }
 };
 
 $(document).ready(function() {

@@ -1,0 +1,49 @@
+/*
+<dialog id="0">
+	<npc> Hey there </npc>
+	<player> Hello </player>
+	<npc> Well, isn't this generic. </npc>
+</dialog>
+<dialog id="1">
+</dialog>
+*/
+
+var JerryTestingford = new Interactable({
+    onMouth: function(event, entity) {
+        //Declination.game.startDialog(Characters['Jerry'].dialog);
+        Declination.game.startDialog(Characters['Jerry'], this);
+    },
+});
+
+var Characters  {
+	Jerry: {
+		name: "Jerry Testingford",
+		//Okay, so here goes the first implementation of the dialog engine.
+		//Something like this: http://stackoverflow.com/questions/1840154/rpg-dialogue-engine-structure
+		//I think the dialog will be kept in a big array, and each element will be an object with the dialog and responses.
+		dialog: THIS IS WHERE THE DIALOG OBJECT BELOW GOES
+	}
+}
+
+
+
+var dialog = {
+	currentDialog: "0",
+	"0": {
+		messages[{
+			who: "npc",
+			says: "Hey there bub",
+		},
+		{
+			who: "you",
+			says: "What should I do?",
+		}]
+	}
+	"1": {
+		messages[{
+			who: "npc",
+
+		}]
+
+	}
+}

@@ -46,21 +46,9 @@ var Testingford = new Interactable({
 var Characters  {
 	Jerry: {
 		name: "Jerry Testingford",
-		something: 3,
-		firstTime: true,
 		//Okay, so here goes the first implementation of the dialog engine.
 		//Something like this: http://stackoverflow.com/questions/1840154/rpg-dialogue-engine-structure
 		//I think the dialog will be kept in a big array, and each element will be an object with the dialog and responses.
-		currentDialog: 0,
-		dialog:[{
-
-		},
-		{
-
-		}
-
-
-		]
-			//Here goes a big ol dialog thing for jerry
+		dialog: dialog.load("jerry", "../dialog/testingford/testDialog.txt")
 	}
 }

@@ -36,6 +36,11 @@ talking to NPCs will add their info to a log - this will help people from forget
 
 what are the core parts of this game? In other words, what do I need barebones to have a functional game?
 for the "first run", anyway
+
+Domingo Brainstorm 1: (Feb 7)
+-Decided to use 2d track system like in double fine host master game deux
+-Decided to use dialogue js library instead of own coded solution
+
 Here's a list:
 	-Some sort of "Intro cinematic"
     -Rooms:
@@ -107,3 +112,5 @@ Here's a list:
  NPC Ideas:
  	-A guy whos only dialogue is placeholder text,resulting in funny nonsensical things...
     -A stats guy
+
+

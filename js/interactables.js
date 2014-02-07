@@ -39,6 +39,7 @@ function Interactable(options) {
             console.log("I can't take this");
         },
     });
+
     console.log("Creating entity with options", options);
     //The doors and items and npc can be derived from this. 
     
