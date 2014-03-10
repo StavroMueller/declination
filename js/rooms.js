@@ -52,6 +52,7 @@ Declination.rooms = {
                     Declination.ui.showClickPopup(event, entity);
                 },
                 onLook: function(event, entity) {
+                    Declination.game.player.translateTo(this.left - this.width);
                     Declination.game.player.say("I'm number one! I'm number one!", "camera", entity)
                 }
                 //Wait, why doesn't the function look like this?
@@ -62,7 +63,9 @@ Declination.rooms = {
                 //})
                 // that would be a hell of  a lot better.
                 //
-                //  
+                // also, I think the besst waay to do this would be to have a variable for
+                //whether we want the guy to have towalk to the item. or not - I mean, more control is better right?  
+                //at least for now
             //all the others handled by defaults
             })
 
@@ -75,6 +78,7 @@ var trackRoomConfig = {
     id: "998",
     trackTop: 200, //The distance the track is from the top
     beginningPosition: 0, //The coordinates from left
+
     interactables: [
         new Interactable({
             top: 300,

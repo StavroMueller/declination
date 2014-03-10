@@ -22,7 +22,7 @@ function Player() {
 	this.width = 100;
 	this.height = 215;
 	this.images =  {
-		walking: "images/player/walking",
+		walking: "images/player/walking.png",
 		//talking: null,
 		standing: "images/player/standing.png",
 	};
@@ -73,7 +73,7 @@ function Player() {
 		var feetYCoordinate = trackPosition - playerHeight //Because feet are usually at the bottom. Of the character image.
 
 		console.log("ASDJWEBWERBWEJRBNWEJRW", this.domElement, this.id, room, trackPosition, playerHeight, feetYCoordinate);
-		$(this.domElement).css({
+		this.domElement.css({
 			"top": feetYCoordinate + "px",
 			"left": room.xStart + "px",
 		});
@@ -81,6 +81,8 @@ function Player() {
 		//now have to append the image element to the room 
 
 		$(Declination.config.roomId).append(this.domElement);
+
+		this.currentX = room.xStart;
 
 
 
@@ -94,6 +96,34 @@ function Player() {
 		else if (target = "other") {
 			console.log(message, ",", this.name, "said to something.")
 		}
+	}
+
+	this.translateTo = function(xCoord) {
+		//maybe it could take in an entity instead?
+		this.domElement.attr("src", this.images.walking);
+		//and then we need stuff to happen on the complete
+		var distance = Math.abs(this.currentX - xCoord)
+		//will have to do more research to see which transition appears more natural
+		console.log(calculateWalkingTime(distance, 150), distance);
+		//We need to flip the image if he is going to the left.
+		this.domElement.transition({x: xCoord + "px"}, calculateWalkingTime(distance, 150), "linear", function(){
+			Declination.game.player.domElement.attr("src", Declination.game.player.images.standing);
+			Declination.game.player.currentX = xCoord;
+			console.log("yay", this, xCoord);
+
+		});
+
+
+	}
+
+
+	//Need to have a function here to calculate the time given a velocity
+	//d=vt
+	//t = d/v
+	//I guess it should be in pixels / sec
+	//distance in pixels
+	function calculateWalkingTime(distance, walkSpeed) {
+		return (distance / walkSpeed) * 1000;
 	}
 	/*
 	heelo
