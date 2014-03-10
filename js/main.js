@@ -14,14 +14,20 @@ var Declination = {
             useId: "#useIcon",
            	takeId: "#takeIcon", 
         },
-    }
+        //non html stuff
+        currentRoom: "trackRoom",
+    },
 };
+
+Declination.player = new Player();
 
 // This will handle strictly game mechanic stuff - 
 // Randomness, chances, that sort of thing
 Declination.game = {
     
     combinationMode: false,
+
+    player: new Player(),
 
 	init: function () {
 		console.log("game init");
@@ -50,7 +56,12 @@ Declination.game = {
             console.log("The interactable", interactable.shortDescription, "has been clicked.");
             Declination.ui.showClickPopup(interactable);
         };
-	}
+	},
+
+    changeRoom: function(roomId) {
+        Declination.rooms[roomId].draw();
+
+    }
 };
 
 // This will do anything that manipulates the DOM for ui stuff.
@@ -65,6 +76,9 @@ Declination.ui = {
         $("#closeText").click(function() {
             $(Declination.config.uiPopup.id).removeClass("md-show");
         });
+        console.log("Drawing current room", Declination.config.currentRoom);
+        var firstRoom = new Room(Declination.rooms[Declination.config.currentRoom]);
+        firstRoom.draw();
         console.log("initted");    
     },
     

@@ -33,6 +33,63 @@ var JerryTestingford = new Interactable({
 
 });
 
+Declination.rooms = {
+    "trackRoom" : {
+        onEnter: "BY GOD, I CAN MOVE!",
+        id: "998",
+        trackPosition: 354, //The distance the track is from the top of the room image
+        xStart: 0, //The left coordinate where we want to start the player
+        playerRatio: 1, //For big/small rooms, etc
+        interactables: [
+            new Interactable({
+                top: 300,
+                left: 300,
+                height: 48,
+                width: 31,
+                shortDescription: "trophy",
+                imageURL: "images/rooms/998/interactables/trophy.png",
+                activate: function(event, entity) {
+                    Declination.ui.showClickPopup(event, entity);
+                },
+                onLook: function(event, entity) {
+                    Declination.game.player.say("I'm number one! I'm number one!", "camera", entity)
+                }
+                //Wait, why doesn't the function look like this?
+                //
+                //activate: function(event, entity) {}
+                //  Declination.ui.showClickPopup(event, entity, {
+                //      //an object holding all the things it can do instead of stupid functions
+                //})
+                // that would be a hell of  a lot better.
+                //
+                //  
+            //all the others handled by defaults
+            })
+
+        ],
+    },
+}
+
+var trackRoomConfig = {
+    onEnter: "BY GOD, I CAN MOVE!",
+    id: "998",
+    trackTop: 200, //The distance the track is from the top
+    beginningPosition: 0, //The coordinates from left
+    interactables: [
+        new Interactable({
+            top: 300,
+            left: 300,
+            shortDescription: "trophy",
+            imageURL: "images/rooms/998/interactables/trophy.png",
+            activate: function(event, entity) {
+                Declination.ui.showClickPopup(event, entity);
+            }
+            //all the others handled by defaults
+        })
+
+    ]
+}
+
 var sampleRoomConfig = {
     onEnter: "You enter the sample room. It's bland, and there's an old lady in the corner giving away toothpicks with small bits of meat on the end.",
     bgImage: "images/rooms/001.png",
@@ -123,6 +180,8 @@ function Room(options) {
     
     this.interactables = options.interactables;
     this.id = options.id;
+    this.trackPosition = options.trackPosition;
+    this.xStart = options.xStart;
     
     this.draw = function () {
         //this is where we would make the map invisible, and then overlay the room page on top.
@@ -142,8 +201,8 @@ function Room(options) {
         }); 
         //let's see what we need first
         //roomImgElement.css({
-        $(roomDiv).empty(); 
-       	$(roomDiv).append(roomImgElement);
+        $(Declination.config.roomId).empty(); 
+       	$(Declination.config.roomId).append(roomImgElement);
        	console.log("Created Room"); 
         _.each(this.interactables, function(entity) {
             //The idea here - each "interactable" will be a div, that just fits an image.
@@ -209,6 +268,8 @@ function Room(options) {
         		}
         	});
         });
+
+        Declination.game.player.drawInRoom(this);
     };
     
 }

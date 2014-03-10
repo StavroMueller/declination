@@ -44,6 +44,7 @@ Domingo Brainstorm 1: (Feb 7)
 Here's a list:
 	-Some sort of "Intro cinematic"
     -Rooms:
+        -Should probably have a scaling factor associated to adjust the picture
     	-3 minimum
         -Specific art style
         -These rooms should:
