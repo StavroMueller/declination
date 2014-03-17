@@ -93,7 +93,29 @@ function Player() {
 
 	}
 
-	this.say = function(message, target) {
+	//Hm - I could have a function that removes the dialog box. this could be removed after a certain time
+	//do I need a new class?
+	//seems like that would be a good thing to do - these will need more functions
+	//draft:
+
+	function DialogDisplay(DOMElementTarget) {
+		//so...we pass in a target to be displayed on
+		//it MUST then be the jquery object of that thing! The dom element
+		this.targetElement = DOMElementTarget;
+		this.domElement = $("<p class='dialog' />");
+		this.domElement.text("This is default text. You shouldn't be seeing this.");
+
+		this.display = function(message, additionalStyle) {
+
+
+		};
+	}
+
+
+	this.say = function(message, target, additionalStyle) {
+		//message - a string that you want shown
+		//target - who he is looking at - at this point, the camera or an object.
+		//additionalStyle - some more styling we may want to add to the text - in JSON jquery css format
 		//Let's get this straight - ALL this will do is display the given text above the character.
 		//MAYBe some length testing, though maybe not.
 		//I think theere should be a p element, with the content changed between each
@@ -101,6 +123,9 @@ function Player() {
 		//The target right now will just contain two things - "camera" or "other"
 		//TODO: add returns when the text is past a certain length - pixelwise
 		this.dialogDisplayElement.text(message)
+		if additionalStyle {
+			this.dialogDisplayElement.css(additionalStyle)
+		}
 		if (target == "camera") {
 			//Change image to face the camera
 			console.log(message, ",", this.name, "said to the camera.")
@@ -110,14 +135,16 @@ function Player() {
 			console.log(message, ",", this.name, "said to something.")
 		}
 
+		console.log(Declination.game.player.domElement.position().top, Declination.game.player.dialogDisplayElement.outerHeight(), "px");
+
+		console.log(Declination.game.player.domElement.position().left, textWidth / 2, Declination.game.player.domElement.width());
+		console.log("finally its", Declination.game.player.domElement.position().left - ((textWidth / 2) - (Declination.game.player.domElement.width() / 2)));
+		$(Declination.config.roomId).append(this.dialogDisplayElement);
 		var textWidth = this.dialogDisplayElement.outerWidth();
 		this.dialogDisplayElement.css({
-			"top": (Declination.game.player.domElement.css("top") - Declination.game.player.dialogDisplayElement.height()) + "px",
+			"top": (Declination.game.player.domElement.position().top - Declination.game.player.dialogDisplayElement.height()) + "px",
 			"left": Declination.game.player.domElement.position().left - ((textWidth / 2) - (Declination.game.player.domElement.width() / 2))
 		})
-
-		console.log(Declination.game.player.domElement.position().left, textWidth / 2, Declination.game.player.domElement.width())
-		$(Declination.config.roomId).append(this.dialogDisplayElement);
 	}
 
 	this.translateTo = function(xCoord) {
