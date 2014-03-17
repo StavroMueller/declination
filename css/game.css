@@ -22,6 +22,17 @@ p.notes {
 	font-family: 'Rock Salt', cursive;
 }
 
+p.dialog {
+    font-family: 'Galdeano', sans-serif;
+    /*To add an outline. From stackoverflow.*/
+    color: green;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    font-size: 24px;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
 /*This class represents anything that can be clicked*/
 .interactable {
     
@@ -80,7 +91,7 @@ p.notes {
     left: 0px;
     height:100%;
     width:100%;
-    cursor: pointer;
+    cursor: crosshair;
 }
 
 #rightside {
@@ -108,6 +119,15 @@ img.uiImage {
     width:30%;
     height: auto;
     padding: 5px
+}
+
+.reversed {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH"; 
 }
 
 .md-content {

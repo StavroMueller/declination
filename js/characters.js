@@ -25,7 +25,12 @@ function Player() {
 		walking: "images/player/walking.png",
 		//talking: null,
 		standing: "images/player/standing.png",
+		toCamera: "images/plater/toCamera.png",
 	};
+
+	this.dialogDisplayElement = $("<p class='dialog' />");
+	this.dialogDisplayElement.text("This is default text. You shouldn't be seeing this.");
+
 
 	var domElement = $("<img/>", {
 		"src": this.images.standing,
@@ -89,27 +94,51 @@ function Player() {
 	}
 
 	this.say = function(message, target) {
+		//Let's get this straight - ALL this will do is display the given text above the character.
+		//MAYBe some length testing, though maybe not.
+		//I think theere should be a p element, with the content changed between each
+		//Maybe it can calculate the display time? Just by number of words. 
 		//The target right now will just contain two things - "camera" or "other"
+		//TODO: add returns when the text is past a certain length - pixelwise
+		this.dialogDisplayElement.text(message)
 		if (target == "camera") {
+			//Change image to face the camera
 			console.log(message, ",", this.name, "said to the camera.")
 		}
 		else if (target = "other") {
+			//Change image to standing image, facing the target probably?
 			console.log(message, ",", this.name, "said to something.")
 		}
+
+		var textWidth = this.dialogDisplayElement.outerWidth();
+		this.dialogDisplayElement.css({
+			"top": (Declination.game.player.domElement.css("top") - Declination.game.player.dialogDisplayElement.height()) + "px",
+			"left": Declination.game.player.domElement.position().left - ((textWidth / 2) - (Declination.game.player.domElement.width() / 2))
+		})
+
+		console.log(Declination.game.player.domElement.position().left, textWidth / 2, Declination.game.player.domElement.width())
+		$(Declination.config.roomId).append(this.dialogDisplayElement);
 	}
 
 	this.translateTo = function(xCoord) {
+		//AH! We could also use this for cinematics!
 		//maybe it could take in an entity instead?
+		var distance = xCoord - this.currentX;
+		if (distance < 0) {
+			console.log("reversin", this);
+			Declination.game.player.domElement.addClass(".reversed");
+			Declination.game.player.domElement.css({"-webkit-transform": "scaleX(-1);"})
+		}
 		this.domElement.attr("src", this.images.walking);
 		//and then we need stuff to happen on the complete
-		var distance = Math.abs(this.currentX - xCoord)
 		//will have to do more research to see which transition appears more natural
 		console.log(calculateWalkingTime(distance, 150), distance);
 		//We need to flip the image if he is going to the left.
-		this.domElement.transition({x: xCoord + "px"}, calculateWalkingTime(distance, 150), "linear", function(){
+		this.domElement.transition({x: xCoord + "px"}, calculateWalkingTime(Math.abs(distance), 150), "linear", function(){
+			Declination.game.player.domElement.removeClass(".reversed");
 			Declination.game.player.domElement.attr("src", Declination.game.player.images.standing);
 			Declination.game.player.currentX = xCoord;
-			console.log("yay", this, xCoord);
+			console.log("Callback completed. [this, x coord]", this, xCoord);
 
 		});
 

@@ -40,6 +40,7 @@ Declination.rooms = {
         trackPosition: 354, //The distance the track is from the top of the room image
         xStart: 0, //The left coordinate where we want to start the player
         playerRatio: 1, //For big/small rooms, etc
+        walkSpeed: 150,
         interactables: [
             new Interactable({
                 top: 300,
@@ -186,6 +187,7 @@ function Room(options) {
     this.id = options.id;
     this.trackPosition = options.trackPosition;
     this.xStart = options.xStart;
+    this.walkSpeed = options.walkSpeed;
     
     this.draw = function () {
         //this is where we would make the map invisible, and then overlay the room page on top.
@@ -272,8 +274,22 @@ function Room(options) {
         		}
         	});
         });
-
         Declination.game.player.drawInRoom(this);
+        $(Declination.config.roomId).click(function(e){
+            console.log(e, e.target.id, Declination.config.roomId);
+            var parentOffset = $(this).parent().offset();
+            //TODO: Make the guy stop at middle, not left. Will fix later - KEEP AN EYE ON THIS! 
+            //make sure to be explicit in the different between MY width values, etc and the actual div dimensions
+            //KEEP AN EYE on this magic word - I don't suspect it to change, but MAY cause problems in the future
+            if (e.target.id == "roomBG") {
+                Declination.game.player.translateTo((e.pageX - parentOffset.left) - (Declination.game.player.width / 2));
+            }
+        });
     };
+
+    this.destroy = function() {
+        //What needs to happen - 
+        //empty the div, REMOVE THE LISTENER for the walking
+    }
     
 }

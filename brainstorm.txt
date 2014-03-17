@@ -71,6 +71,10 @@ Here's a list:
             -Each character could be stored in JSON, and that would be fed in to generic functions on the entities themselves. 
             -Have DIALOG, that should:
                 -Be stored in some dynamic structure
+                -on the DIALOG...
+                    -need to come up with some sort of timing mechanic. something that allows for short and long pauses.
+                     hopefully just custom functions - but this might be more complicated, with setTimeout() and such. it would be cool for the dialog to to have
+                     the ability to pause built in.
         -On hover, there should be a sort of update of the UI to show which item the user is hovering over.
         -They should interact with each other. This means that you can "choose" one from inventory and apply it to another interactable
          and have something happen.
