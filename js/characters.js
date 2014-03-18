@@ -15,6 +15,11 @@ function Character() {
 //can eventually be configured; not right now.
 //need to come up with a standardized image size for the character
 //or maybe a caling constant
+	//Hm - I could have a function that removes the dialog box. this could be removed after a certain time
+	//do I need a new class?
+	//seems like that would be a good thing to do - these will need more functions
+	//draft:
+
 function Player() {
 	this.name = "Vick Nandine";
 	this.id = "player";
@@ -28,8 +33,6 @@ function Player() {
 		toCamera: "images/plater/toCamera.png",
 	};
 
-	this.dialogDisplayElement = $("<p class='dialog' />");
-	this.dialogDisplayElement.text("This is default text. You shouldn't be seeing this.");
 
 
 	var domElement = $("<img/>", {
@@ -45,6 +48,7 @@ function Player() {
 
 	this.domElement = domElement;
 
+    this.dialogDisplay = new DialogDisplay(this);
 	/*
 	        var itemElement = $("<img/>", {
             "src": this.imageURL,
@@ -93,59 +97,11 @@ function Player() {
 
 	}
 
-	//Hm - I could have a function that removes the dialog box. this could be removed after a certain time
-	//do I need a new class?
-	//seems like that would be a good thing to do - these will need more functions
-	//draft:
-
-	function DialogDisplay(DOMElementTarget) {
-		//so...we pass in a target to be displayed on
-		//it MUST then be the jquery object of that thing! The dom element
-		this.targetElement = DOMElementTarget;
-		this.domElement = $("<p class='dialog' />");
-		this.domElement.text("This is default text. You shouldn't be seeing this.");
-
-		this.display = function(message, additionalStyle) {
 
 
-		};
-	}
 
 
-	this.say = function(message, target, additionalStyle) {
-		//message - a string that you want shown
-		//target - who he is looking at - at this point, the camera or an object.
-		//additionalStyle - some more styling we may want to add to the text - in JSON jquery css format
-		//Let's get this straight - ALL this will do is display the given text above the character.
-		//MAYBe some length testing, though maybe not.
-		//I think theere should be a p element, with the content changed between each
-		//Maybe it can calculate the display time? Just by number of words. 
-		//The target right now will just contain two things - "camera" or "other"
-		//TODO: add returns when the text is past a certain length - pixelwise
-		this.dialogDisplayElement.text(message)
-		if additionalStyle {
-			this.dialogDisplayElement.css(additionalStyle)
-		}
-		if (target == "camera") {
-			//Change image to face the camera
-			console.log(message, ",", this.name, "said to the camera.")
-		}
-		else if (target = "other") {
-			//Change image to standing image, facing the target probably?
-			console.log(message, ",", this.name, "said to something.")
-		}
-
-		console.log(Declination.game.player.domElement.position().top, Declination.game.player.dialogDisplayElement.outerHeight(), "px");
-
-		console.log(Declination.game.player.domElement.position().left, textWidth / 2, Declination.game.player.domElement.width());
-		console.log("finally its", Declination.game.player.domElement.position().left - ((textWidth / 2) - (Declination.game.player.domElement.width() / 2)));
-		$(Declination.config.roomId).append(this.dialogDisplayElement);
-		var textWidth = this.dialogDisplayElement.outerWidth();
-		this.dialogDisplayElement.css({
-			"top": (Declination.game.player.domElement.position().top - Declination.game.player.dialogDisplayElement.height()) + "px",
-			"left": Declination.game.player.domElement.position().left - ((textWidth / 2) - (Declination.game.player.domElement.width() / 2))
-		})
-	}
+	// (replaced by the dialogdisplay class) this.say = function(message, target, additionalStyle) {
 
 	this.translateTo = function(xCoord) {
 		//AH! We could also use this for cinematics!
@@ -159,7 +115,7 @@ function Player() {
 		this.domElement.attr("src", this.images.walking);
 		//and then we need stuff to happen on the complete
 		//will have to do more research to see which transition appears more natural
-		console.log(calculateWalkingTime(distance, 150), distance);
+		console.log(calculateWalkingTime(distance, 500), distance);
 		//We need to flip the image if he is going to the left.
 		this.domElement.transition({x: xCoord + "px"}, calculateWalkingTime(Math.abs(distance), 150), "linear", function(){
 			Declination.game.player.domElement.removeClass(".reversed");

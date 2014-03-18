@@ -89,7 +89,7 @@ function Interactable(options) {
             "position": "absolute",
         }).addClass("interactable");;
         
-        this.itemElement = itemElement;
+        this.domElement = itemElement;
         return itemElement;
         
     };
@@ -140,7 +140,7 @@ function Interactable(options) {
         $("#inventory").append(inventoryElement);
         
         //Then we need to remove the item from the playing field
-        this.itemElement.remove();
+        this.domElement.remove();
     };
     
     this.combineWith = function(incomingEntity) {
