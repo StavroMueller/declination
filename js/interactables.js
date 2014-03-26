@@ -15,7 +15,7 @@ function Interactable(options) {
         top: 0,
         imageURL: "images/rooms/999/interactables/999.png",
         description: "This is the default description",
-        shortDescription: "test",
+        name: "test",
         acceptsItems: ["someItem", "test"],
         //Why is this called activate? This is the on-click function, but we want a more generic term, I think - for tablets and such.
         //This is the topmost - this is what absolutely happens when the elemnt is clicked. We can choose to show the UI, or do something completely different.
@@ -51,7 +51,7 @@ function Interactable(options) {
     this.onLook = options.onLook;
     this.onTalk = options.onTalk;
     this.onUse = options.onUse;
-    this.shortDescription = options.shortDescription;
+    this.name = options.name;
     this.imageURL = options.imageURL;
     this.width = options.width;
     this.height = options.height;
@@ -59,16 +59,35 @@ function Interactable(options) {
     this.yCenter = options.yCenter;
     this.onTake = options.onTake;
     this.combinesWith = options.combinesWith;
+
     //this.inventoryElement = Here will be a jquery element that we create on init, for them to add to the inventory. It
     this.inventoryElement = $("<img/>", {
         "src": this.imageURL,
-        "id": this.shortDescription + "inv",
+        "id": this.name + "inv",
         "class": "inventoryImage", //This should be less magic
     }).css({
         //here will go some css stuff...I think mostly for positioning and class
     });
+
+    this.domElement = $("<img/>", {
+            "src": this.imageURL,
+            "id": this.name,
+    }).css({
+            "top": this.top + "px",
+            "left": this.left + "px",
+            "width": this.width + "px",
+            "height": this.height + "px",
+            "position": "absolute",
+    }).addClass("interactable");;
+
+    console.log("AWOENAWOENAWONEOAWNEOANWE", this.domElement);
+    if (options.dialog) {
+        console.log("HEARERAERER", this);
+        this.dialogDisplay = new DialogDisplay(this);
+    }
     
-    this.generateDOMElement = function() {
+    /*
+    this.generateDomElement = function() {
         //Generates a DOME element! ....
         //This will return the dom element of the interactable - this is because the traits will be different 
         //based on which type of interactable we are. (People have animations and text, etc.)
@@ -78,7 +97,7 @@ function Interactable(options) {
             
         var itemElement = $("<img/>", {
             "src": this.imageURL,
-            "id": this.shortDescription,
+            "id": this.name,
         });
         
         itemElement.css({
@@ -93,6 +112,7 @@ function Interactable(options) {
         return itemElement;
         
     };
+    */
     
     //Private
     this.addToInventory = function() {
@@ -110,7 +130,7 @@ function Interactable(options) {
         // we could have a "mode" thatholds which item is selected and whether it is on or not
     	var inventoryElement = $("<img/>", {
         	"src": this.imageURL,
-        	"id": this.shortDescription + "inv",
+        	"id": this.name+ "inv",
         	"class": "inventoryImage", //This should be less magic
             "style": "z-index: 20",
     	}).click(function() {
@@ -140,12 +160,12 @@ function Interactable(options) {
         $("#inventory").append(inventoryElement);
         
         //Then we need to remove the item from the playing field
-        this.domElement.remove();
+        this.DomElement.remove();
     };
     
     this.combineWith = function(incomingEntity) {
        //should this be public or private? 
-       if ($.inArray(incomingEntity.shortDescription, this.acceptsItems)) {
+       if ($.inArray(incomingEntity.name, this.acceptsItems)) {
            
        }
     };

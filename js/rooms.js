@@ -12,7 +12,7 @@ var JerryTestingford = new Interactable({
     top: 40,
     left: 30,
     //imageURL: Characters['Jerry'].imageURL,
-    shortDescription: "Jerrymeister",
+    name: "Jerrymeister",
     description: "He was always the bell of the ball",
     activate: function(event, entity) {
         Declination.ui.showClickPopup(event, entity);
@@ -47,14 +47,21 @@ Declination.rooms = {
                 left: 300,
                 height: 48,
                 width: 31,
-                shortDescription: "trophy",
+                name: "trophy",
+                description: "Go you! You won the competition and beat Strong Bad!",
                 imageURL: "images/rooms/998/interactables/trophy.png",
+                dialog: true,
                 activate: function(event, entity) {
                     Declination.ui.showClickPopup(event, entity);
                 },
-                onLook: function(event, entity) {
-                    Declination.game.player.translateTo(this.left - this.width);
-                    Declination.game.player.say("I'm number one! I'm number one!", "camera", entity)
+                onLook: function() {
+                    var ent = this;
+                    Declination.game.player.translateTo(this.left - this.width, function() {
+                        //(On success callback)
+                        console.log("the target entituy is", ent);
+                        Declination.game.player.dialogDisplay.display("Hey, it's a trophy!", "camera");
+                        ent.dialogDisplay.display("I'm a trophy alright", "camera");
+                    });
                 }
                 //Wait, why doesn't the function look like this?
                 //
@@ -84,7 +91,7 @@ var trackRoomConfig = {
         new Interactable({
             top: 300,
             left: 300,
-            shortDescription: "trophy",
+            name: "trophy",
             imageURL: "images/rooms/998/interactables/trophy.png",
             activate: function(event, entity) {
                 Declination.ui.showClickPopup(event, entity);
@@ -101,9 +108,9 @@ var sampleRoomConfig = {
     id: "999",
     interactables: [
         new Interactable({
-        	left: 50,
+            left: 50,
             top: 50,
-            shortDescription: "testinstuffs",
+            name: "testinstuffs",
             activate: function(event, entity) {
                 //This happens whenever the event is clicked - the first is the jquery event
                 //Why a seperate activate function? Because maybe we don't want to show the UI every time.
@@ -112,7 +119,7 @@ var sampleRoomConfig = {
             },
             onLook: function() {
                 //Declination.game.say("This object makes me feel testy.")
-                console.log("I'm looking at the", this.shortDescription, "!", "For", this);
+                console.log("I'm looking at the", this.name, "!", "For", this);
                 
             },
             onUse: function() {
@@ -123,7 +130,7 @@ var sampleRoomConfig = {
                 
             },
             onTake: function() {
-            	//Declination.game.say("TAKING the TEST item!");   
+                //Declination.game.say("TAKING the TEST item!");   
                 this.addToInventory();
             },
     
@@ -132,7 +139,7 @@ var sampleRoomConfig = {
             left: 100,
             top: 100,
             description: "This is another object",
-            shortDescription: "test2",
+            name: "test2",
             activate: function() {
                 console.log("meep");
             },
@@ -141,7 +148,7 @@ var sampleRoomConfig = {
             left: 300,
             top: 50,
             description: "blah",
-            shortDescription: "farAway",
+            name: "farAway",
         }),
     ]
 };
@@ -165,9 +172,9 @@ function RoomSet(roomArray) {
 
 //The options object will look something like this:
 //{
-//	roomId: 999 //The id for the room - used to locate all the resources
+//  roomId: 999 //The id for the room - used to locate all the resources
 //  interactables: [
-//		new Interactable("Door", 16, 16)
+//      new Interactable("Door", 16, 16)
 //
 //
 //
@@ -198,7 +205,7 @@ function Room(options) {
         // and just for placeholding (really we will grab it from the global variable):
         
         var roomDiv= "#room";
-       	
+        
         var roomImgElement = $("<img/>", {
             "src": "images/rooms/" + this.id + "/backgrounds/main.png",
             "id": "roomBG",
@@ -208,8 +215,8 @@ function Room(options) {
         //let's see what we need first
         //roomImgElement.css({
         $(Declination.config.roomId).empty(); 
-       	$(Declination.config.roomId).append(roomImgElement);
-       	console.log("Created Room"); 
+        $(Declination.config.roomId).append(roomImgElement);
+        console.log("Created Room"); 
         _.each(this.interactables, function(entity) {
             //The idea here - each "interactable" will be a div, that just fits an image.
             //This image we will then define where it will be placed absolutely inside the "room"
@@ -218,21 +225,21 @@ function Room(options) {
             //var html = "<img src='";
             
             //html += entity.imageName + "' id='" + entity.id + "'";
-        	console.log("Creating the interactable", entity);
-        	console.log(entity.activate);
-            var domElement = entity.generateDOMElement();
+            console.log("Creating the interactable", entity);
+            console.log(entity.activate);
+            //var domElement = entity.generateDomElement();
             
-        	console.log("Created the" , entity.shortDescription, "element as html:" , domElement);
-            $(roomDiv).append(domElement);
+            console.log("Created the" , entity.name, "element as html:" , entity.domElement);
+            $(roomDiv).append(entity.domElement);
             
-        	/*
+            /*
             if (typeof(entity.activate) != 'undefined') {
-        		console.log("There was a click for the entity", entity);
+                console.log("There was a click for the entity", entity);
                 //Add a listener to the element for a click
                 //the functioni is in the entity activation
                 $("#" + entity.shortDescription).click(function(event) {
-        			entity.activate(event, entity);
-        		});
+                    entity.activate(event, entity);
+                });
                 
             }
             */
@@ -241,38 +248,38 @@ function Room(options) {
         });
         
         $(".interactable").bind('click', {interactables: this.interactables,},function(event) {
-       		//so, what needs to happen here? The modal window needs to be shown at the click location, and has to be edited according to the 
-        	//particular interactable.
-        	//Why is this a class now instead of being on each object? Because we want one modal window generation, not multiples.
-        	console.log(event.data.interactables);
-        	var id = this.id;
-        	console.log(id," was clicked");
-        	//I really don't want to do a search through all of the interactables...
-        	//But seems to me, at least when I am tired and stressed, that that's the only way to go.
-        	_.each(event.data.interactables, function(entity) {
-        		//(The div id is the short description)
-        		console.log(entity.shortDescription, id);
-        		if (entity.shortDescription == id) {
-        			console.log("Calling click popup");
-        			//Here is where we could put the click handlers? We need one for a:
-        			//
-        			// Regular click
-        			// and a click in the "combination mode"
-        			if (Declination.game.combinationMode) {
-        				//Do the combination mode stuff here
-        				console.log("Turning off combination mode");
-        				Declination.game.combinationMode = false;
-        				entity.combineWith(Declination.game.getCombiningItem());
-        			}
-        			else {
+            //so, what needs to happen here? The modal window needs to be shown at the click location, and has to be edited according to the 
+            //particular interactable.
+            //Why is this a class now instead of being on each object? Because we want one modal window generation, not multiples.
+            console.log(event.data.interactables);
+            var id = this.id;
+            console.log(id," was clicked");
+            //I really don't want to do a search through all of the interactables...
+            //But seems to me, at least when I am tired and stressed, that that's the only way to go.
+            _.each(event.data.interactables, function(entity) {
+                //(The div id is the short description)
+                console.log(entity.name, id);
+                if (entity.name== id) {
+                    console.log("Calling click popup");
+                    //Here is where we could put the click handlers? We need one for a:
+                    //
+                    // Regular click
+                    // and a click in the "combination mode"
+                    if (Declination.game.combinationMode) {
+                        //Do the combination mode stuff here
+                        console.log("Turning off combination mode");
+                        Declination.game.combinationMode = false;
+                        entity.combineWith(Declination.game.getCombiningItem());
+                    }
+                    else {
                         //if it can be picked up
                         console.log("Popping off the entity", entity)
                         event.data.interactables.pop[entity];
-        				Declination.ui.showClickPopup(event, entity);
-        			}
-        			return;
-        		}
-        	});
+                        Declination.ui.showClickPopup(event, entity);
+                    }
+                    return;
+                }
+            });
         });
         Declination.game.player.drawInRoom(this);
         $(Declination.config.roomId).click(function(e){

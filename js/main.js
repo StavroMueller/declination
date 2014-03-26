@@ -34,7 +34,6 @@ Declination.game = {
         
         //I guess we can hold the inventory here
         this.inventory = {
-            
             addItem: function(item) {
                 //This will just accept the interactable object.
                 //Will take in an item obejct? Should these be bare objects or translated from something else?
@@ -53,7 +52,7 @@ Declination.game = {
         };
         
         this.interactableClicked = function(interactable) {
-            console.log("The interactable", interactable.shortDescription, "has been clicked.");
+            console.log("The interactable", interactable.name, "has been clicked.");
             Declination.ui.showClickPopup(interactable);
         };
 	},
@@ -100,7 +99,7 @@ Declination.ui = {
                "left": (parseInt(event.currentTarget.style.left.match(/\d+/g)[0]) + event.offsetX) + "px",
             });
         }
-        $(Declination.config.uiPopup.itemNameId).text(interactable.shortDescription);
+        $(Declination.config.uiPopup.itemNameId).text(interactable.name);
         
         //Then, we make new listeners. First we have to remove the old ones. (From all of the ui images)
         $(Declination.config.uiPopup.uiImageClass).off();

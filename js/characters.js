@@ -23,7 +23,7 @@ function Character() {
 function Player() {
 	this.name = "Vick Nandine";
 	this.id = "player";
-	this.height = 100; //The purpose of this is to not have to deal with using the "px" terms if retrieving from css
+	this.height = 100; //The purpose of this is to not have to deal with using the "px" terms if retrieving from css - but jquery already has somethign for that d'oh
 	this.width = 100;
 	this.height = 215;
 	this.images =  {
@@ -48,6 +48,7 @@ function Player() {
 
 	this.domElement = domElement;
 
+	console.log("creating new dialog display for player with this", this);
     this.dialogDisplay = new DialogDisplay(this);
 	/*
 	        var itemElement = $("<img/>", {
@@ -82,6 +83,7 @@ function Player() {
 		var feetYCoordinate = trackPosition - playerHeight //Because feet are usually at the bottom. Of the character image.
 
 		console.log("ASDJWEBWERBWEJRBNWEJRW", this.domElement, this.id, room, trackPosition, playerHeight, feetYCoordinate);
+		debugger;
 		this.domElement.css({
 			"top": feetYCoordinate + "px",
 			"left": room.xStart + "px",
@@ -94,7 +96,6 @@ function Player() {
 		this.currentX = room.xStart;
 
 
-
 	}
 
 
@@ -103,7 +104,7 @@ function Player() {
 
 	// (replaced by the dialogdisplay class) this.say = function(message, target, additionalStyle) {
 
-	this.translateTo = function(xCoord) {
+	this.translateTo = function(xCoord, callback) {
 		//AH! We could also use this for cinematics!
 		//maybe it could take in an entity instead?
 		var distance = xCoord - this.currentX;
@@ -122,7 +123,7 @@ function Player() {
 			Declination.game.player.domElement.attr("src", Declination.game.player.images.standing);
 			Declination.game.player.currentX = xCoord;
 			console.log("Callback completed. [this, x coord]", this, xCoord);
-
+			callback ? callback() : console.log("No callback for translateTo");
 		});
 
 
