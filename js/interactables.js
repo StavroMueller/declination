@@ -80,10 +80,9 @@ function Interactable(options) {
             "position": "absolute",
     }).addClass("interactable");;
 
-    console.log("AWOENAWOENAWONEOAWNEOANWE", this.domElement);
     if (options.dialog) {
-        console.log("HEARERAERER", this);
         this.dialogDisplay = new DialogDisplay(this);
+        this.dialog = options.dialog;
     }
     
     /*
@@ -136,17 +135,12 @@ function Interactable(options) {
     	}).click(function() {
         	//The clicky stuff should happen here    
             //This is what happens when you clikc the item in the inventory
-            console.log("clickenstuffs");
-            console.log(inventoryElement);
-            console.log("Changing to combination mode");
             //This can't be the best way to do this
             Declination.game.combinationMode = true;
             $(inventoryElement).css({
                 "position": "absolute",
             });
             $("#playArea").mousemove(function(e) {
-              console.log("moving");
-              console.log(e);
               //Here we need to check what the active div is to make sure that we position 
               //the element correctly
               $(inventoryElement).css({

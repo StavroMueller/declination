@@ -1,1 +1,5 @@
-1 Hey there! This is some dialog.
+#The a and b are the actors - a being the npc, be being the player. I guess it could be another guy too. 
+0 a 5000 camera Yo, I'm Jerry. Testingford. Yeah, I know. -> 1
+1 b 1000 other Now, what do you want? [2,3]
+2 What am I doing here?
+

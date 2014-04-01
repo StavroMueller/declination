@@ -50,7 +50,7 @@ Declination.rooms = {
                 name: "trophy",
                 description: "Go you! You won the competition and beat Strong Bad!",
                 imageURL: "images/rooms/998/interactables/trophy.png",
-                dialog: true,
+                dialog: new DialogSet(trackRoomScripts["trophy"]),
                 activate: function(event, entity) {
                     Declination.ui.showClickPopup(event, entity);
                 },
@@ -59,8 +59,9 @@ Declination.rooms = {
                     Declination.game.player.translateTo(this.left - this.width, function() {
                         //(On success callback)
                         console.log("the target entituy is", ent);
-                        Declination.game.player.dialogDisplay.display("Hey, it's a trophy!", "camera");
-                        ent.dialogDisplay.display("I'm a trophy alright", "camera");
+                        Declination.game.startDialogWith(ent);
+                        //Declination.game.player.dialogDisplay.display("Hey, it's a trophy!", "camera");
+                        //ent.dialogDisplay.display("I'm a trophy alright", "camera");
                     });
                 }
                 //Wait, why doesn't the function look like this?

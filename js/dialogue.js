@@ -1,4 +1,7 @@
+
 // this is MY dialogue stuff - the library is in dialogueLibrary.js
+//This strictly just handles the DISPLAY of the dialog. will be used in conjunction with whatever the hell library I want to use. 
+
 function DialogDisplay(who) {
     //who will be the object passed in - either the player or an interactable
 	//so...we pass in a target to be displayed on
@@ -70,3 +73,79 @@ Declination.dialog = {
 
 }
 */
+
+/*
+
+rapport = {
+	0: {
+		message: "Hey there bub",
+		displayTime: 5000,
+		nextNode: [1],
+		directedTo: "camera",
+		whoSaysThis: "interactable",
+	},
+
+	1: {
+		message: "I know I'm breaking the fourth wall."
+		displayTime: 5000,
+		nextNodes: [2],
+		directedTo: "camera",
+		whoSaysThis: "interactable",
+	}
+
+	2: {
+		message: "So, what do you want?"
+		displayTime: 4000,
+		nextNodes:[3,4],
+		directedTo: "player",
+		whoSaysThis: "interactable",
+	}
+
+
+};
+*/
+//okay, this is going to be 
+//OKAY - this will build a queue of the things that need to be said, up until the choice or when the thing needs to stop, that
+//will then be iterated through with jquery
+//I can just do a train of setTImeout functions that are cumulative with delays!
+//
+// setTimeout(show the dialog, 0)
+// setTimeout(show the dialog, 0 + this dialog's time)
+// setTimeout(show the dialog, (0+this dialog's time) + this dialog's time)
+//
+//
+//
+
+
+
+
+
+function DialogSet(dialog) {
+	//eventually we can have this read from a file, if we want. 
+	this.dialog = dialog;
+	this.currentNode = 0;
+	this.continue = true;
+
+	this.getDialog = function() {
+
+		//this will return to the dialog thing the current dialog step
+		//it will also handle formatting of responses in the future
+		var currentDialogMessage = this.dialog[this.currentNode].nextNodes;
+		console.log("current dialog message", currentDialogMessage, this, this.currentNode);
+		this.currentNode = this.dialog[this.currentNode].nextNodes;
+		return currentDialogMessage;
+
+
+	};
+
+	this.isStoppingPoint = function() {
+		if (this.dialog[this.currentNode].stoppingPoint == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	};
+
+
+}

@@ -29,6 +29,25 @@ Declination.game = {
 
     player: new Player(),
 
+    startDialogWith: function(interactable) {
+
+        //something to switch to a dialog mode
+        var delayAccumulator = 0;
+        console.log("Dialog interactable is", interactable);
+        while (!interactable.dialog.isStoppingPoint()) {
+            console.log(!interactable.dialog.isStoppingPoint());
+            var currentDialog = interactable.dialog.getDialog();
+            console.log("main current dialog is", currentDialog);
+            delayAccumulator += currentDialog.displayTime;
+            if (currentDialog.whoSaysThis == "player") {
+                setTimeout(Declination.game.player.dialogDisplay.display(currentDialog.message), delayAccumulator);
+            }
+            else if (currentDialog.whoSaysThis == "interactable") {
+                setTimeout(interactable.dialogDisplay.display(currentDialog.message), delayAccumulator);
+            }
+        };
+    },
+
 	init: function () {
 		console.log("game init");
         

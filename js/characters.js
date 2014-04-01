@@ -83,7 +83,6 @@ function Player() {
 		var feetYCoordinate = trackPosition - playerHeight //Because feet are usually at the bottom. Of the character image.
 
 		console.log("ASDJWEBWERBWEJRBNWEJRW", this.domElement, this.id, room, trackPosition, playerHeight, feetYCoordinate);
-		debugger;
 		this.domElement.css({
 			"top": feetYCoordinate + "px",
 			"left": room.xStart + "px",

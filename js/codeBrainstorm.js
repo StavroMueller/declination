@@ -39,6 +39,87 @@ var dialog = [
 	]}
 ]
 
+//setTimeout(showNextDualogPiece, 5000)
+//So it's pasically a linked list? like a path! with costs...
+function Dialoge
+
+rapport: [{
+	id: 0,
+	msg: "Hi there",
+	time: 4000,
+	//or camera
+	to: "other",
+},
+{
+	id: 1,
+	msg: "I'm a test dialogrue",
+	time: 1000,
+	to: "other",
+}
+
+//Here are some HARD AND FAST rules that I will be assuming when programming this dialog:
+// An exchange between two people will be contained in ONE rapport object
+// Might as well stick to the same naming convention - player for us, and "interactable" for the thing
+// saying the stuff. How's that for specific?
+//
+//
+//
+//
+//
+
+
+rapport = {
+	0: {
+		message: "Hey there bub",
+		displayTime: 5000,
+		nextNode: 1,
+		directedTo: "camera",
+		whoSaysThis: "Interactable",
+	},
+
+	1: {
+		message: "I know I'm breaking the fourth wall."
+		displayTime: 5000,
+		nextNode: 2,
+		directedTo: "camera",
+		whoSaysThis: "Interactable",
+	}
+
+
+};
+
+//there should also be a blank thing too for comedic timing
+
+rapport = {
+	0: {
+		message: "Hey there bub",
+		displayTime: 5000,
+		nextNode: [1],
+		directedTo: "camera",
+		whoSaysThis: "interactable",
+	},
+
+	1: {
+		message: "I know I'm breaking the fourth wall."
+		displayTime: 5000,
+		nextNodes: [2],
+		directedTo: "camera",
+		whoSaysThis: "interactable",
+	}
+
+	2: {
+		message: "So, what do you want?"
+		displayTime: 4000,
+		nextNodes:[3,4],
+		directedTo: "player",
+		whoSaysThis: "interactable",
+	}
+
+
+};
+
+
+
 //THIS will take in all of the dialog - just json text I think - and make it into a functional thing
 function DialogTree(dialog) {
 	this.currentDialog = dialog.currentDialog;
