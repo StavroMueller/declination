@@ -56,6 +56,7 @@ Declination.rooms = {
                 },
                 onLook: function() {
                     var ent = this;
+                    //First, move the guy to the spot
                     Declination.game.player.translateTo(this.left - this.width, function() {
                         //(On success callback)
                         console.log("the target entituy is", ent);
@@ -207,6 +208,7 @@ function Room(options) {
         
         var roomDiv= "#room";
         
+        //Create the html element
         var roomImgElement = $("<img/>", {
             "src": "images/rooms/" + this.id + "/backgrounds/main.png",
             "id": "roomBG",
@@ -215,7 +217,11 @@ function Room(options) {
         }); 
         //let's see what we need first
         //roomImgElement.css({
+        
+        //Empty the current room container
         $(Declination.config.roomId).empty(); 
+        
+        //Add the image element
         $(Declination.config.roomId).append(roomImgElement);
         console.log("Created Room"); 
         _.each(this.interactables, function(entity) {
@@ -231,6 +237,8 @@ function Room(options) {
             //var domElement = entity.generateDomElement();
             
             console.log("Created the" , entity.name, "element as html:" , entity.domElement);
+        
+        	//Append the dom element of each interactable.
             $(roomDiv).append(entity.domElement);
             
             /*
@@ -253,6 +261,8 @@ function Room(options) {
             //particular interactable.
             //Why is this a class now instead of being on each object? Because we want one modal window generation, not multiples.
             console.log(event.data.interactables);
+        
+        	//just set the DOM id to the same as the id for each item
             var id = this.id;
             console.log(id," was clicked");
             //I really don't want to do a search through all of the interactables...
@@ -260,6 +270,7 @@ function Room(options) {
             _.each(event.data.interactables, function(entity) {
                 //(The div id is the short description)
                 console.log(entity.name, id);
+        
                 if (entity.name== id) {
                     console.log("Calling click popup");
                     //Here is where we could put the click handlers? We need one for a:

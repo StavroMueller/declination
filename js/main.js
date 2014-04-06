@@ -16,6 +16,7 @@ var Declination = {
         },
         //non html stuff
         currentRoom: "trackRoom",
+        wordsPerSecond: 3,
     },
 };
 
@@ -34,10 +35,14 @@ Declination.game = {
         //something to switch to a dialog mode
         var delayAccumulator = 0;
         console.log("Dialog interactable is", interactable);
+        //While the dialog is not said to be a "stopping point"...
         while (!interactable.dialog.isStoppingPoint()) {
             console.log(!interactable.dialog.isStoppingPoint());
+            //We get the current dialog message and its other information, such as the time we want it displayed.
             var currentDialog = interactable.dialog.getDialog();
             console.log("main current dialog is", currentDialog);
+            
+            //We add the time to display to the delay accumulator - do we actually want that on the disappear function?
             delayAccumulator += currentDialog.displayTime;
             if (currentDialog.whoSaysThis == "player") {
                 setTimeout(Declination.game.player.dialogDisplay.display(currentDialog.message), delayAccumulator);
@@ -45,6 +50,9 @@ Declination.game = {
             else if (currentDialog.whoSaysThis == "interactable") {
                 setTimeout(interactable.dialogDisplay.display(currentDialog.message), delayAccumulator);
             }
+            else {
+                console.log("uh oh! whosaysthis is wrong!");
+            };
         };
     },
 

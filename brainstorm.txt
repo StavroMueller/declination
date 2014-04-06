@@ -37,6 +37,28 @@ talking to NPCs will add their info to a log - this will help people from forget
 what are the core parts of this game? In other words, what do I need barebones to have a functional game?
 for the "first run", anyway
 
+Dialog Freewrite:
+
+How to make this work? I know there has to be some component of advancing forward the dialog - this will chiefely be by  click on the person and then on the mouth
+to initiate it, AND THEN By timed events! This means that - person A will say something, the callback from settimeout will initiate the next item in the thing. Would recursion
+be a good fit for this? it might, actually. We could have the settimeout call stuff...hmm...AH! we could build a stack of the one way converstation elements and then stop when there is a
+choice in the dialog. Those choices will also be in a stack, and popped off with a removeDialog() option or something. Maybe the dialog should be a class wrapper around all of the stuff?
+it would read in the dialog from dialogue js and handle responses and such, that way it is relatively simple to do the stepping. The first thing to test it with would be the testingford,
+and no choices to begin with. So, shoudl there be a script for each interaction? seems like it should be. 
+
+More Dialog Freewrite
+
+So, the dialog seems to be more complicated, there needs to be a sort of tick function 0 thi is the easiest way to check if we are displaying at the right tim. This turns the code into a much more "gamey" format. however, thoiugh this should be okay. We swould have an update interval, something like500 msec or something, though it can change. Then we could still jave the time intervals in the data structiure dfrot hte dialog, and we would use some math to check if it the correct time to dipaya the diaog yet. This could be done with modulus I think, so the end result would be something like:
+
+Declination.ui.dialogInterval = setInterval(timeTick, interval);
+
+function timeTick() {
+    //check to see 
+
+
+
+}
+
 Domingo Brainstorm 1: (Feb 7)
 -Decided to use 2d track system like in double fine host master game deux
 -Decided to use dialogue js library instead of own coded solution
@@ -117,5 +139,8 @@ Here's a list:
  NPC Ideas:
  	-A guy whos only dialogue is placeholder text,resulting in funny nonsensical things...
     -A stats guy
+
+
+
 
 

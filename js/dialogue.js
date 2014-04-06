@@ -130,13 +130,54 @@ function DialogSet(dialog) {
 
 		//this will return to the dialog thing the current dialog step
 		//it will also handle formatting of responses in the future
-		var currentDialogMessage = this.dialog[this.currentNode].nextNodes;
+		var currentDialogMessage = this.dialog[this.currentNode];
 		console.log("current dialog message", currentDialogMessage, this, this.currentNode);
 		this.currentNode = this.dialog[this.currentNode].nextNodes;
 		return currentDialogMessage;
 
 
 	};
+    
+    this.engageDialog = function() {
+        
+        //this will be some pretty heavy UI stuff
+       	var startTime = new Date();
+        
+        //the interval at which we want the ticker to ...tick.
+        var interval = 100;
+        
+        //Get the current message
+        var script = this.dialog;
+        var currentMessage = script.shift();
+        var currentTime = startTime;
+        
+        //start the interval
+        var dialogInterval = setInterval(dialogTick, interval);
+        
+        function dialogTick() {
+            //First, we update the time to the current ticker time
+            console.log("intervalthing!");
+            currentTime = new Date(currentTime.getTime() + interval);
+            console.log(currentTime);
+            console.log(currentTime - startTime);
+            console.log(currentMessage);
+            
+            //var timeToSay = currentMessage.message.split(' ').length * Declination.config.wordsPerSecond * 1000
+            var timeToSay = 1000;
+            
+            if (currentMessage && timeToSay < currentTime - startTime) {
+                console.log(currentMessage.message);
+                currentMessage = script.shift();
+                if (currentMessage.stoppingPoint) {
+                    console.log("it's done");
+                    clearInterval(dialogInterval);
+                }
+            }
+            
+        }
+        
+        
+    };
 
 	this.isStoppingPoint = function() {
 		if (this.dialog[this.currentNode].stoppingPoint == true) {
@@ -146,6 +187,5 @@ function DialogSet(dialog) {
 			return false;
 		}
 	};
-
-
+    
 }
