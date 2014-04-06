@@ -144,6 +144,7 @@ function DialogSet(dialog) {
        	var startTime = new Date();
         
         //the interval at which we want the ticker to ...tick.
+        //in milliseconds
         var interval = 100;
         
         //Get the current message
@@ -157,21 +158,26 @@ function DialogSet(dialog) {
         function dialogTick() {
             //First, we update the time to the current ticker time
             console.log("intervalthing!");
+            
+            //First, we set the current time 
             currentTime = new Date(currentTime.getTime() + interval);
-            console.log(currentTime);
-            console.log(currentTime - startTime);
-            console.log(currentMessage);
+            console.log("current time", currentTime);
+            console.log("current time - start time", currentTime - startTime);
+            console.log("scriptTme", currentMessage.displayTime);
+            console.log(typeof currentMessage, currentMessage);
+            console.log("THE STATEMENT", script.displayTime < currentTime - startTime);
             
             //var timeToSay = currentMessage.message.split(' ').length * Declination.config.wordsPerSecond * 1000
             var timeToSay = 1000;
             
-            if (currentMessage && timeToSay < currentTime - startTime) {
+            //need to check if the length is just one - that way the people always have one thing to say.
+            if (!(typeof currentMessage === undefined) && (currentMessage.displayTime < currentTime - startTime)) {
                 console.log(currentMessage.message);
-                currentMessage = script.shift();
                 if (currentMessage.stoppingPoint) {
                     console.log("it's done");
                     clearInterval(dialogInterval);
                 }
+                currentMessage = script.shift();
             }
             
         }

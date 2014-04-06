@@ -271,6 +271,7 @@ function Room(options) {
                 //(The div id is the short description)
                 console.log(entity.name, id);
         
+        		//We found the correct element!
                 if (entity.name== id) {
                     console.log("Calling click popup");
                     //Here is where we could put the click handlers? We need one for a:

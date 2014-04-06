@@ -3,7 +3,7 @@ var trackRoomScripts = {
 	"trophy": [
 		{
 			message: "Hey there bub",
-			displayTime: 2000,
+			displayTime: 1000,
 			nextNodes: 1,
 			directedTo: "camera",
 			whoSaysThis: "interactable",
@@ -21,7 +21,7 @@ var trackRoomScripts = {
 
 		{
 			message: "Yep, you're talking to me again.",
-			displayTime: 2000,
+			displayTime: 3000,
 			nextNodes: null,
 			directedTo: "player",
 			whoSaysThis: "interactable",
