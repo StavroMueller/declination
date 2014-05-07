@@ -8,6 +8,7 @@
 //jquery can get the coords of a click - we can check if the click is within the coords of an object, and then 
 //we go from there
 //Here are some sample interactables
+//debugger;
 var JerryTestingford = new Interactable({
     top: 40,
     left: 30,
@@ -50,7 +51,7 @@ Declination.rooms = {
                 name: "trophy",
                 description: "Go you! You won the competition and beat Strong Bad!",
                 imageURL: "images/rooms/998/interactables/trophy.png",
-                dialog: new DialogSet(trackRoomScripts["trophy"]),
+                script: trackRoomScripts["trophy"],
                 activate: function(event, entity) {
                     Declination.ui.showClickPopup(event, entity);
                 },
@@ -60,7 +61,8 @@ Declination.rooms = {
                     Declination.game.player.translateTo(this.left - this.width, function() {
                         //(On success callback)
                         console.log("the target entituy is", ent);
-                        Declination.game.startDialogWith(ent);
+                        ent.dialog.engageDialog();
+                        //Declination.game.startDialogWith(ent);
                         //Declination.game.player.dialogDisplay.display("Hey, it's a trophy!", "camera");
                         //ent.dialogDisplay.display("I'm a trophy alright", "camera");
                     });
@@ -104,6 +106,7 @@ var trackRoomConfig = {
     ]
 }
 
+/*
 var sampleRoomConfig = {
     onEnter: "You enter the sample room. It's bland, and there's an old lady in the corner giving away toothpicks with small bits of meat on the end.",
     bgImage: "images/rooms/001.png",
@@ -154,7 +157,7 @@ var sampleRoomConfig = {
         }),
     ]
 };
-
+*/
 //This will take in an array, I think, of all the rooms
 //This will be a two dimensional array of all the rooms, handling their relations and such 
 function RoomSet(roomArray) {

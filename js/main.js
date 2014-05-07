@@ -45,10 +45,10 @@ Declination.game = {
             //We add the time to display to the delay accumulator - do we actually want that on the disappear function?
             delayAccumulator += currentDialog.displayTime;
             if (currentDialog.whoSaysThis == "player") {
-                setTimeout(Declination.game.player.dialogDisplay.display(currentDialog.message), delayAccumulator);
+                setTimeout(Declination.game.player.dialog.display(currentDialog.message), delayAccumulator);
             }
             else if (currentDialog.whoSaysThis == "interactable") {
-                setTimeout(interactable.dialogDisplay.display(currentDialog.message), delayAccumulator);
+                setTimeout(interactable.dialog.display(currentDialog.message), delayAccumulator);
             }
             else {
                 console.log("uh oh! whosaysthis is wrong!");

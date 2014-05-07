@@ -80,9 +80,9 @@ function Interactable(options) {
             "position": "absolute",
     }).addClass("interactable");;
 
-    if (options.dialog) {
-        this.dialogDisplay = new DialogDisplay(this);
-        this.dialog = options.dialog;
+    if (options.script) {
+        //Create a new dialog set
+        this.dialog = new DialogSet(this, options.script);
     }
     
     /*

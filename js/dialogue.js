@@ -120,20 +120,27 @@ rapport = {
 
 
 
-function DialogSet(dialog) {
+function DialogSet(who, script) {
 	//eventually we can have this read from a file, if we want. 
-	this.dialog = dialog;
+	console.log("heybibble", script);
+	this.script = script;
+	console.log("biee", this.script);
 	this.currentNode = 0;
 	this.continue = true;
+    this.name = who.name;
+	this.targetElement = who.domElement;
+	this.textDomElement = $("<p class='dialog' />");
+	this.textDomElement.text("This is default text. You shouldn't be seeing this.");
+	this.defaultDisplayTime = 1500; //the time in ms we want to show the text
 
 	this.getDialog = function() {
 
 		//this will return to the dialog thing the current dialog step
 		//it will also handle formatting of responses in the future
-		var currentDialogMessage = this.dialog[this.currentNode];
-		console.log("current dialog message", currentDialogMessage, this, this.currentNode);
-		this.currentNode = this.dialog[this.currentNode].nextNodes;
-		return currentDialogMessage;
+		var currentScriptMessage = this.script[this.currentNode];
+		console.log("current dialog message", currentScriptMessage, this, this.currentNode);
+		this.currentNode = this.script[this.currentNode].nextNodes;
+		return currentScriptMessage;
 
 
 	};
@@ -145,15 +152,16 @@ function DialogSet(dialog) {
         
         //the interval at which we want the ticker to ...tick.
         //in milliseconds
-        var interval = 100;
+        var interval = 500;
         
         //Get the current message
-        var script = this.dialog;
-        var currentMessage = script.shift();
+        console.log(this);
+        console.log(this.script);
+        var currentMessage = this.script.shift();
         var currentTime = startTime;
         
         //start the interval
-        var dialogInterval = setInterval(dialogTick, interval);
+        var dialogInterval = setInterval($.proxy(dialogTick, this), interval);
         
         function dialogTick() {
             //First, we update the time to the current ticker time
@@ -165,19 +173,29 @@ function DialogSet(dialog) {
             console.log("current time - start time", currentTime - startTime);
             console.log("scriptTme", currentMessage.displayTime);
             console.log(typeof currentMessage, currentMessage);
-            console.log("THE STATEMENT", script.displayTime < currentTime - startTime);
-            
-            //var timeToSay = currentMessage.message.split(' ').length * Declination.config.wordsPerSecond * 1000
-            var timeToSay = 1000;
+            console.log("THE STATEMENT", currentMessage.displayTime < currentTime - startTime);
+            console.log(this);
             
             //need to check if the length is just one - that way the people always have one thing to say.
             if (!(typeof currentMessage === undefined) && (currentMessage.displayTime < currentTime - startTime)) {
+                //Display the message
+                if (currentMessage.whoSaysThis == "player") {
+                    setTimeout(Declination.game.player.dialog.display(currentMessage.message), currentMessage.displayTime);
+                }
+                else if (currentMessage.whoSaysThis == "interactable") {
+                    setTimeout(this.display(currentMessage.message), currentMessage.displayTime);
+                }
+                else {
+                    console.log("uh oh! whosaysthis is wrong!");
+                };
                 console.log(currentMessage.message);
                 if (currentMessage.stoppingPoint) {
                     console.log("it's done");
                     clearInterval(dialogInterval);
                 }
-                currentMessage = script.shift();
+                console.log("Shifting to the next message, which is:");
+                currentMessage = this.script.shift();
+                console.log(currentMessage);
             }
             
         }
@@ -186,12 +204,76 @@ function DialogSet(dialog) {
     };
 
 	this.isStoppingPoint = function() {
-		if (this.dialog[this.currentNode].stoppingPoint == true) {
+		if (this.script[this.currentNode].stoppingPoint == true) {
 			return true;
 		}
 		else {
 			return false;
 		}
 	};
+    
+    //this.display = function(message, target, additionalStyle, displayTime) {
+    //WHAT does this.display do? this only DISPLAYS the current message. It also makes the text element invisible.
+    //So, this should be called whenever we cant to display something over an object. 
+    this.display = function(message, options) {
+
+    	if (!options) {
+    		var options = {};
+    	}
+
+    	_.defaults(options, {
+    		displayTime: 1000,
+    		target: "camera",
+    	});
+
+		if (options.additionalStyle) {
+			this.textDomElement.css(additionalStyle);
+		}
+
+		if (options.target == "camera") {
+			//Change image to face the camera
+			console.log(message, ",", who.name, "said to the camera.")
+		}
+		else if (options.target = "other") {
+			//Change image to standing image, facing the target probably?
+			console.log(message, ",", who.name, "said to something.")
+		}
+		//the target is an "object"
+		else {
+			//we do something here
+		}
+
+		this.textDomElement.text(message)
+		console.log("THE DOM ELEMENT IS ", this.targetElement, this);
+
+		//First we add the element to the room
+		$(Declination.config.roomId).append(this.textDomElement)
+        console.log(this.targetElement.position(), this.targetElement.height(), this.textDomElement.width())
+
+        //Just calculating where it needs to go
+		var textWidth = this.textDomElement.outerWidth();
+		var topValue = (this.targetElement.position().top - this.textDomElement.height()) + "px";
+		var leftValue = this.targetElement.position().left - ((textWidth / 2) - (this.targetElement.width() / 2)) + "px";
+		this.textDomElement.css({
+			"display" : "block",
+			"top": topValue,
+			"left": leftValue,
+		});
+
+		console.log("begfore the timeouts");
+		//Then we call the methods to get rid of the display.
+		setTimeout($.proxy(makeTextInvisible, this), options.displayTime);
+
+	};
+
+	function makeTextInvisible() {
+		//here will be the stuff that we want to happen to make the 
+		console.log("MakingText invisible");
+		console.log(this);
+		this.textDomElement.css({
+			"display": "none",
+		});
+		//p element not visible, probably just through css
+	}
     
 }
