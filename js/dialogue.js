@@ -119,7 +119,7 @@ rapport = {
 
 
 
-
+//All of this stuff handles the timing of the dialog, and WHEN it is displayed.
 function DialogSet(who, script) {
 	//eventually we can have this read from a file, if we want. 
 	console.log("heybibble", script);
@@ -157,12 +157,22 @@ function DialogSet(who, script) {
         //Get the current message
         console.log(this);
         console.log(this.script);
-        var currentMessage = this.script.shift();
-        var currentTime = startTime;
+        //Okay, so we always want there to be a line or two left, and never have an empty array.
+        //We can do this right now by checking if the "nextNodex" attribute of the message is null, showing
+        //that it is the "last" one - there will be no more interaction after this. I know, there's proabbly a better way to do this. 
+
         
         //start the interval
-        var dialogInterval = setInterval($.proxy(dialogTick, this), interval);
-        
+        // First - we check if we even have anything lest to say! Null shows that we don't, so the last message is just displayed.
+        if ( (this.lastMessage) && (this.lastMessage.nextNodes == null)) {
+        	this.display(this.lastMessage.message, this.lastMessage.timeOnScreen);
+        }
+        else { 
+	        var currentMessage = this.script.shift();
+	        var currentTime = startTime;
+	        var dialogInterval = setInterval($.proxy(dialogTick, this), interval);
+	    }
+	        
         function dialogTick() {
             //First, we update the time to the current ticker time
             console.log("intervalthing!");
@@ -180,10 +190,13 @@ function DialogSet(who, script) {
             if (!(typeof currentMessage === undefined) && (currentMessage.displayTime < currentTime - startTime)) {
                 //Display the message
                 if (currentMessage.whoSaysThis == "player") {
-                    setTimeout(Declination.game.player.dialog.display(currentMessage.message), currentMessage.displayTime);
+                    setTimeout(Declination.game.player.dialogDisplay.display(currentMessage.message, {timeOnScreen: currentMessage.timeOnScreen}), currentMessage.displayTime);
                 }
                 else if (currentMessage.whoSaysThis == "interactable") {
-                    setTimeout(this.display(currentMessage.message), currentMessage.displayTime);
+                    setTimeout(this.display(currentMessage.message, {
+                    		timeOnScreen: currentMessage.timeOnScreen,
+                    		additionalStyle: {'color': 'blue'},
+                    	}), currentMessage.displayTime);
                 }
                 else {
                     console.log("uh oh! whosaysthis is wrong!");
@@ -193,8 +206,10 @@ function DialogSet(who, script) {
                     console.log("it's done");
                     clearInterval(dialogInterval);
                 }
+                //This will run even after the interval is cleared - maybe should put it somewhere elsei n 
                 console.log("Shifting to the next message, which is:");
                 currentMessage = this.script.shift();
+                this.lastMessage = currentMessage;
                 console.log(currentMessage);
             }
             
@@ -222,12 +237,12 @@ function DialogSet(who, script) {
     	}
 
     	_.defaults(options, {
-    		displayTime: 1000,
+    		timeOnScreen: 1000,
     		target: "camera",
     	});
 
 		if (options.additionalStyle) {
-			this.textDomElement.css(additionalStyle);
+			this.textDomElement.css(options.additionalStyle);
 		}
 
 		if (options.target == "camera") {
@@ -262,7 +277,7 @@ function DialogSet(who, script) {
 
 		console.log("begfore the timeouts");
 		//Then we call the methods to get rid of the display.
-		setTimeout($.proxy(makeTextInvisible, this), options.displayTime);
+		setTimeout($.proxy(makeTextInvisible, this), options.timeOnScreen);
 
 	};
 

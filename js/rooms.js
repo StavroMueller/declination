@@ -85,6 +85,7 @@ Declination.rooms = {
     },
 }
 
+/*
 var trackRoomConfig = {
     onEnter: "BY GOD, I CAN MOVE!",
     id: "998",
@@ -106,7 +107,6 @@ var trackRoomConfig = {
     ]
 }
 
-/*
 var sampleRoomConfig = {
     onEnter: "You enter the sample room. It's bland, and there's an old lady in the corner giving away toothpicks with small bits of meat on the end.",
     bgImage: "images/rooms/001.png",
